@@ -1,0 +1,38 @@
+{
+  "scope": "Maize only",
+  "n_records": 753,
+  "test_accuracy": 0.5298013245033113,
+  "roc_auc": 0.5576315789473684,
+  "cv_accuracy_mean": 0.5684150110375276,
+  "cv_accuracy_std": 0.03919948647339014,
+  "majority_baseline": 0.5046480743691899,
+  "n_train": 602,
+  "n_test": 151,
+  "classification_report": {
+    "High": {
+      "precision": 0.5303030303030303,
+      "recall": 0.4666666666666667,
+      "f1-score": 0.49645390070921985,
+      "support": 75.0
+    },
+    "Low": {
+      "precision": 0.5294117647058824,
+      "recall": 0.5921052631578947,
+      "f1-score": 0.5590062111801242,
+      "support": 76.0
+    },
+    "accuracy": 0.5298013245033113,
+    "macro avg": {
+      "precision": 0.5298573975044563,
+      "recall": 0.5293859649122807,
+      "f1-score": 0.527730055944672,
+      "support": 151.0
+    },
+    "weighted avg": {
+      "precision": 0.5298544462938697,
+      "recall": 0.5298013245033113,
+      "f1-score": 0.5279371828005359,
+      "support": 151.0
+    }
+  }
+}
