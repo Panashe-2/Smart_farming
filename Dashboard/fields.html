@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FarmSense - Fields</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styleDashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="dashboard-brand">
+            <div class="brand-mark">FS</div>
+
+            <div>
+                <h1>FarmSense</h1>
+                <p>Precision Farming</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"
+               class="nav-link">
+                Overview
+            </a>
+
+            <a href="fields.html"
+               class="nav-link active">
+                Fields
+            </a>
+
+            <a href="cropHealth.html"
+               class="nav-link">
+                Crop Health
+            </a>
+
+            <a href="irrigation.html"
+               class="nav-link">
+                Irrigation
+            </a>
+
+            <a href="weather.html"
+               class="nav-link">
+                Weather
+            </a>
+
+            <a href="reports.html"
+               class="nav-link">
+                Reports
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <a href="settings.html"
+               class="nav-link">
+                Settings
+            </a>
+
+            <button type="button"
+                    id="logoutButton"
+                    class="logout-button">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- Main Fields content -->
+    <main class="main-content">
+
+        <header class="dashboard-header">
+
+            <div>
+                <p class="page-label">Field management</p>
+
+                <h2>My Fields</h2>
+
+                <p class="header-description">
+                    Monitor and manage all registered farm fields.
+                </p>
+            </div>
+
+            <button type="button"
+                    class="add-field-button"
+                    id="addFieldButton">
+                Add new field
+            </button>
+
+        </header>
+
+        <!-- Field summary -->
+        <section class="field-summary-grid">
+
+            <article class="summary-card">
+                <div class="card-heading">
+                    <p>Total fields</p>
+                </div>
+
+                <h3 id="totalFields">3</h3>
+
+                <p class="card-status">
+                    Registered fields
+                </p>
+            </article>
+
+            <article class="summary-card">
+                <div class="card-heading">
+                    <p>Total area</p>
+                </div>
+
+                <h3 id="totalArea">112 ha</h3>
+
+                <p class="card-status">
+                    Combined farming area
+                </p>
+            </article>
+
+            <article class="summary-card">
+                <div class="card-heading">
+                    <p>Healthy fields</p>
+                </div>
+
+                <h3 id="healthyFields">2</h3>
+
+                <p class="card-status positive">
+                    Currently performing well
+                </p>
+            </article>
+
+        </section>
+
+        <!-- Fields -->
+        <section class="fields-section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="panel-label">Registered fields</p>
+                    <h3>Field conditions</h3>
+                </div>
+
+                <select id="fieldFilter"
+                        aria-label="Filter fields">
+                    <option value="all">All fields</option>
+                    <option value="healthy">Healthy</option>
+                    <option value="monitor">Needs monitoring</option>
+                </select>
+            </div>
+
+            <div class="field-grid" id="fieldGrid">
+
+                <!-- North Corn Field -->
+                <article class="field-card"
+                         data-status="healthy">
+
+                    <div class="field-card-header">
+                        <div>
+                            <p>Field 01</p>
+                            <h3>North Corn Field</h3>
+                        </div>
+
+                        <span class="field-status healthy">
+                            Healthy
+                        </span>
+                    </div>
+
+                    <div class="field-details">
+                        <div>
+                            <span>Crop</span>
+                            <strong>Corn</strong>
+                        </div>
+
+                        <div>
+                            <span>Area</span>
+                            <strong>45 hectares</strong>
+                        </div>
+
+                        <div>
+                            <span>Soil moisture</span>
+                            <strong>68%</strong>
+                        </div>
+
+                        <div>
+                            <span>Temperature</span>
+                            <strong>24.6°C</strong>
+                        </div>
+                    </div>
+
+                    <button type="button"
+                            class="view-field-button">
+                        View field details
+                    </button>
+
+                </article>
+
+                <!-- Eastern Corn Field -->
+                <article class="field-card"
+                         data-status="monitor">
+
+                    <div class="field-card-header">
+                        <div>
+                            <p>Field 02</p>
+                            <h3>Eastern Corn Field</h3>
+                        </div>
+
+                        <span class="field-status monitor">
+                            Monitor
+                        </span>
+                    </div>
+
+                    <div class="field-details">
+                        <div>
+                            <span>Crop</span>
+                            <strong>Corn</strong>
+                        </div>
+
+                        <div>
+                            <span>Area</span>
+                            <strong>38 hectares</strong>
+                        </div>
+
+                        <div>
+                            <span>Soil moisture</span>
+                            <strong>54%</strong>
+                        </div>
+
+                        <div>
+                            <span>Temperature</span>
+                            <strong>27.2°C</strong>
+                        </div>
+                    </div>
+
+                    <button type="button"
+                            class="view-field-button">
+                        View field details
+                    </button>
+
+                </article>
+
+                <!-- Southern Corn Field -->
+                <article class="field-card"
+                         data-status="healthy">
+
+                    <div class="field-card-header">
+                        <div>
+                            <p>Field 03</p>
+                            <h3>Southern Corn Field</h3>
+                        </div>
+
+                        <span class="field-status healthy">
+                            Healthy
+                        </span>
+                    </div>
+
+                    <div class="field-details">
+                        <div>
+                            <span>Crop</span>
+                            <strong>Corn</strong>
+                        </div>
+
+                        <div>
+                            <span>Area</span>
+                            <strong>29 hectares</strong>
+                        </div>
+
+                        <div>
+                            <span>Soil moisture</span>
+                            <strong>71%</strong>
+                        </div>
+
+                        <div>
+                            <span>Temperature</span>
+                            <strong>23.9°C</strong>
+                        </div>
+                    </div>
+
+                    <button type="button"
+                            class="view-field-button">
+                        View field details
+                    </button>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+<script src="fields.js"></script>
+</body>
+</html>

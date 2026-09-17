@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FarmSense Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="styleDashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="dashboard-brand">
+            <div class="brand-mark">FS</div>
+
+            <div>
+                <h1>FarmSense</h1>
+                <p>Precision Farming</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active">Overview</a>
+            <a href="#" class="nav-link">Fields</a>
+            <a href="#" class="nav-link">Crop Health</a>
+            <a href="#" class="nav-link">Irrigation</a>
+            <a href="#" class="nav-link">Weather</a>
+            <a href="#" class="nav-link">Reports</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-link">Settings</a>
+            <button type="button" id="logoutButton" class="logout-button">
+                Log out
+            </button>
+        </div>
+
+    </aside>
+
+    <!-- Main dashboard -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+                <p class="page-label">Farm overview</p>
+                <h2>Good day, Farmer</h2>
+                <p class="header-description">
+                    Monitor your farm conditions and crop performance.
+                </p>
+            </div>
+
+            <div class="header-actions">
+                <div class="live-status">
+                    <span class="status-dot"></span>
+                    Live data
+                </div>
+
+                <div class="user-profile">
+                    <div class="user-initials">FM</div>
+
+                    <div>
+                        <strong>Farm Manager</strong>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- Summary cards -->
+        <section class="summary-grid">
+
+            <article class="summary-card">
+                <div class="card-heading">
+                    <p>Soil moisture</p>
+                    <span>Live</span>
+                </div>
+
+                <h3 id="soilMoisture">68%</h3>
+                <p class="card-status positive">Within the ideal range</p>
+            </article>
+
+            <article class="summary-card">
+                <div class="card-heading">
+                    <p>Temperature</p>
+                    <span>Live</span>
+                </div>
+
+                <h3 id="temperature">24.6°C</h3>
+                <p class="card-status positive">Suitable for crop growth</p>
+            </article>
+
+            <article class="summary-card">
+                <div class="card-heading">
+                    <p>Air humidity</p>
+                    <span>Live</span>
+                </div>
+
+                <h3 id="humidity">61%</h3>
+                <p class="card-status">Moderate conditions</p>
+            </article>
+
+            <article class="summary-card">
+                <div class="card-heading">
+                    <p>Crop health</p>
+                    <span>Analysis</span>
+                </div>
+
+                <h3 id="cropHealth">Good</h3>
+                <p class="card-status positive">No major risks detected</p>
+            </article>
+
+        </section>
+
+        <!-- Dashboard details -->
+        <section class="dashboard-grid">
+
+            <!-- Chart -->
+            <article class="dashboard-panel chart-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-label">Field conditions</p>
+                        <h3>Soil moisture trend</h3>
+                    </div>
+
+                    <select id="chartPeriod" aria-label="Select chart period">
+                        <option value="today">Today</option>
+                        <option value="week">This week</option>
+                        <option value="month">This month</option>
+                    </select>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="moistureChart"></canvas>
+                </div>
+
+            </article>
+
+            <!-- Irrigation -->
+            <article class="dashboard-panel irrigation-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-label">Water management</p>
+                        <h3>Irrigation system</h3>
+                    </div>
+
+                    <span id="irrigationStatus" class="system-status">
+                        Automatic
+                    </span>
+                </div>
+
+                <div class="irrigation-content">
+                    <p>Current field</p>
+                    <h4>North Corn Field</h4>
+
+                    <div class="progress-track">
+                        <div class="progress-value" id="irrigationProgress"></div>
+                    </div>
+
+                    <div class="progress-details">
+                        <span>Watering progress</span>
+                        <strong id="progressText">72%</strong>
+                    </div>
+
+                    <button type="button" id="irrigationButton"
+                            class="primary-button">
+                        Pause irrigation
+                    </button>
+                </div>
+
+            </article>
+
+            <!-- Recommendations -->
+            <article class="dashboard-panel recommendations-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-label">Decision support</p>
+                        <h3>Farm recommendations</h3>
+                    </div>
+                </div>
+
+                <div class="recommendation-list">
+
+                    <div class="recommendation-item">
+                        <span class="recommendation-level high"></span>
+
+                        <div>
+                            <h4>Inspect the eastern field</h4>
+                            <p>
+                                Soil moisture is slightly lower in this area.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-item">
+                        <span class="recommendation-level medium"></span>
+
+                        <div>
+                            <h4>Review tomorrow's irrigation</h4>
+                            <p>
+                                Rain is expected, so less irrigation may be required.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-item">
+                        <span class="recommendation-level low"></span>
+
+                        <div>
+                            <h4>Crop conditions are stable</h4>
+                            <p>
+                                Continue monitoring temperature and humidity.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- Weather -->
+            <article class="dashboard-panel weather-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-label">Local forecast</p>
+                        <h3>Weather conditions</h3>
+                    </div>
+                </div>
+
+                <div class="weather-main">
+                    <h4 id="weatherTemperature">25°C</h4>
+
+                    <div>
+                        <strong id="weatherCondition">Partly cloudy</strong>
+                        <p>North Corn Field</p>
+                    </div>
+                </div>
+
+                <div class="weather-details">
+                    <div>
+                        <span>Wind</span>
+                        <strong id="windSpeed">12 km/h</strong>
+                    </div>
+
+                    <div>
+                        <span>Rain chance</span>
+                        <strong id="rainChance">35%</strong>
+                    </div>
+                </div>
+
+            </article>
+
+        </section>
+
+        <footer class="dashboard-footer">
+            <p>
+                Last updated:
+                <span id="lastUpdated">Waiting for live data</span>
+            </p>
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="dashboard.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FarmSense - Crop Health</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styleDashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="dashboard-brand">
+
+            <div class="brand-mark">FS</div>
+
+            <div>
+                <h1>FarmSense</h1>
+                <p>Precision Farming</p>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html"
+               class="nav-link">
+                Overview
+            </a>
+
+            <a href="fields.html"
+               class="nav-link">
+                Fields
+            </a>
+
+            <a href="cropHealth.html"
+               class="nav-link active">
+                Crop Health
+            </a>
+
+            <a href="irrigation.html"
+               class="nav-link">
+                Irrigation
+            </a>
+
+            <a href="weather.html"
+               class="nav-link">
+                Weather
+            </a>
+
+            <a href="reports.html"
+               class="nav-link">
+                Reports
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <a href="settings.html"
+               class="nav-link">
+                Settings
+            </a>
+
+            <button type="button"
+                    id="logoutButton"
+                    class="logout-button">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+                <p class="page-label">Crop monitoring</p>
+
+                <h2>Crop Health</h2>
+
+                <p class="header-description">
+                    Monitor crop conditions and review possible health risks.
+                </p>
+            </div>
+
+            <div class="live-status">
+                <span class="status-dot"></span>
+                Monitoring active
+            </div>
+
+        </header>
+
+        <!-- Summary cards -->
+        <section class="crop-summary-grid">
+
+            <article class="summary-card">
+
+                <div class="card-heading">
+                    <p>Overall health</p>
+                    <span>Current</span>
+                </div>
+
+                <h3 id="overallHealth">Good</h3>
+
+                <p class="card-status positive">
+                    Crops are performing well
+                </p>
+
+            </article>
+
+            <article class="summary-card">
+
+                <div class="card-heading">
+                    <p>Healthy areas</p>
+                    <span>Live</span>
+                </div>
+
+                <h3 id="healthyAreas">82%</h3>
+
+                <p class="card-status positive">
+                    No major symptoms detected
+                </p>
+
+            </article>
+
+            <article class="summary-card">
+
+                <div class="card-heading">
+                    <p>Areas to monitor</p>
+                    <span>Attention</span>
+                </div>
+
+                <h3 id="areasToMonitor">18%</h3>
+
+                <p class="card-status">
+                    Inspection recommended
+                </p>
+
+            </article>
+
+            <article class="summary-card">
+
+                <div class="card-heading">
+                    <p>Active alerts</p>
+                    <span>Current</span>
+                </div>
+
+                <h3 id="activeAlerts">2</h3>
+
+                <p class="card-status">
+                    Require review
+                </p>
+
+            </article>
+
+        </section>
+
+        <!-- Crop health panels -->
+        <section class="crop-health-grid">
+
+            <!-- Health by field -->
+            <article class="dashboard-panel crop-overview-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Field analysis</p>
+                        <h3>Health by field</h3>
+                    </div>
+
+                    <select id="healthFieldFilter"
+                            aria-label="Select field">
+
+                        <option value="all">All fields</option>
+
+                        <option value="north">
+                            North Corn Field
+                        </option>
+
+                        <option value="east">
+                            Eastern Corn Field
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="health-field-list">
+
+                    <!-- North Field -->
+                    <div class="health-field-item"
+                         data-field="north">
+
+                        <div class="health-field-heading">
+
+                            <div>
+                                <h4>North Corn Field</h4>
+                                <p>Last inspected today</p>
+                            </div>
+
+                            <span class="health-label healthy">
+                                Healthy
+                            </span>
+
+                        </div>
+
+                        <div class="health-progress-track">
+                            <div class="health-progress-value north"></div>
+                        </div>
+
+                        <div class="health-progress-details">
+                            <span>Health score</span>
+                            <strong>91%</strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Eastern Field -->
+                    <div class="health-field-item"
+                         data-field="east">
+
+                        <div class="health-field-heading">
+
+                            <div>
+                                <h4>Eastern Corn Field</h4>
+                                <p>Last inspected today</p>
+                            </div>
+
+                            <span class="health-label monitor">
+                                Monitor
+                            </span>
+
+                        </div>
+
+                        <div class="health-progress-track">
+                            <div class="health-progress-value east"></div>
+                        </div>
+
+                        <div class="health-progress-details">
+                            <span>Health score</span>
+                            <strong>73%</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- Disease detection -->
+            <article class="dashboard-panel disease-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Image analysis</p>
+                        <h3>Disease detection</h3>
+                    </div>
+
+                </div>
+
+                <div class="disease-placeholder">
+
+                    <h4>Machine-learning model pending</h4>
+
+                    <p>
+                        Crop images will be analysed here after the
+                        disease-detection model is connected.
+                    </p>
+
+                    <button type="button"
+                            id="uploadCropButton"
+                            class="primary-button">
+                        Select crop image
+                    </button>
+
+                    <input type="file"
+                           id="cropImageInput"
+                           accept="image/*"
+                           hidden>
+
+                    <p id="selectedImageName"
+                       class="selected-image-name">
+                        No image selected
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- Health alerts -->
+            <article class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Attention required</p>
+                        <h3>Health alerts</h3>
+                    </div>
+
+                </div>
+
+                <div class="health-alert-list">
+
+                    <div class="health-alert-item high">
+
+                        <div>
+                            <h4>Possible leaf stress</h4>
+
+                            <p>
+                                Eastern Corn Field requires a visual inspection.
+                            </p>
+                        </div>
+
+                        <span>High</span>
+
+                    </div>
+
+                    <div class="health-alert-item medium">
+
+                        <div>
+                            <h4>Uneven crop growth</h4>
+
+                            <p>
+                                Check soil nutrients in the north-east section.
+                            </p>
+                        </div>
+
+                        <span>Medium</span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- Recommended actions -->
+            <article class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Recommended action</p>
+                        <h3>Next steps</h3>
+                    </div>
+
+                </div>
+
+                <div class="crop-action-list">
+
+                    <div class="crop-action-item">
+                        <strong>1</strong>
+
+                        <p>
+                            Inspect leaves in the Eastern Corn Field.
+                        </p>
+                    </div>
+
+                    <div class="crop-action-item">
+                        <strong>2</strong>
+
+                        <p>
+                            Record any visible crop symptoms.
+                        </p>
+                    </div>
+
+                    <div class="crop-action-item">
+                        <strong>3</strong>
+
+                        <p>
+                            Upload an image when the model is ready.
+                        </p>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <footer class="dashboard-footer">
+
+            <p>
+                Last health update:
+                <span id="healthLastUpdated">
+                    Waiting for data
+                </span>
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="cropHealth.js"></script>
+
+</body>
+
+</html>

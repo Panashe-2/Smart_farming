@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarmSense — Sign in</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styleLogin.css">
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- LEFT: swap corn-field.jpg for your own photo, same folder as this file -->
+  <section class="hero">
+    <div class="brand">
+      <div class="brand-badge">🌱</div>
+      <div>
+        <div class="brand-name">FarmSense</div>
+        <div class="brand-sub">Precision Corn Management</div>
+      </div>
+    </div>
+
+    <div>
+      <p class="eyebrow">Season 2025–26</p>
+      <h1 class="headline">Real-time intelligence for every row.</h1>
+    </div>
+
+    <p class="hero-copy">"Everything your farm needs to tell you, in one place."</p>
+  </section>
+
+  <!-- RIGHT: login form -->
+  <section class="panel">
+    <div class="form-wrap">
+      <h2 class="welcome">Welcome back</h2>
+      <p class="welcome-sub">Sign in to your farm management account</p>
+
+      <form id="loginForm">
+        <div class="field">
+          <div class="field-row"><label for="email">Email address</label></div>
+          <input type="email" id="email" placeholder="james@morrowfarms.com.au" required>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <label for="password">Password</label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <div class="input-shell">
+            <input type="password" id="password" placeholder="••••••••••" required minlength="6">
+            <button type="button" class="toggle-eye" id="toggleEye">👁</button>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Sign in to FarmSense</button>
+        <p class="status-msg" id="statusMsg"></p>
+      </form>
+
+      <div class="divider">or</div>
+
+      <div class="oauth-row">
+        <button type="button" class="oauth-btn">Google</button>
+        <button type="button" class="oauth-btn">Microsoft</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

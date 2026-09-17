@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FarmSense - Weather</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styleDashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="dashboard-brand">
+
+            <div class="brand-mark">FS</div>
+
+            <div>
+                <h1>FarmSense</h1>
+                <p>Precision Farming</p>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html"
+               class="nav-link">
+                Overview
+            </a>
+
+            <a href="fields.html"
+               class="nav-link">
+                Fields
+            </a>
+
+            <a href="cropHealth.html"
+               class="nav-link">
+                Crop Health
+            </a>
+
+            <a href="irrigation.html"
+               class="nav-link">
+                Irrigation
+            </a>
+
+            <a href="weather.html"
+               class="nav-link active">
+                Weather
+            </a>
+
+            <a href="reports.html"
+               class="nav-link">
+                Reports
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <a href="settings.html"
+               class="nav-link">
+                Settings
+            </a>
+
+            <button type="button"
+                    id="logoutButton"
+                    class="logout-button">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+                <p class="page-label">Local conditions</p>
+
+                <h2>Weather</h2>
+
+                <p class="header-description">
+                    Review current conditions and the farming forecast.
+                </p>
+            </div>
+
+            <div class="live-status">
+                <span class="status-dot"></span>
+                Weather updated
+            </div>
+
+        </header>
+
+        <!-- Weather summary -->
+        <section class="weather-summary-grid">
+
+            <article class="summary-card">
+
+                <div class="card-heading">
+                    <p>Temperature</p>
+                    <span>Current</span>
+                </div>
+
+                <h3 id="currentTemperature">25°C</h3>
+
+                <p class="card-status">
+                    Partly cloudy
+                </p>
+
+            </article>
+
+            <article class="summary-card">
+
+                <div class="card-heading">
+                    <p>Humidity</p>
+                    <span>Current</span>
+                </div>
+
+                <h3 id="currentHumidity">61%</h3>
+
+                <p class="card-status positive">
+                    Suitable conditions
+                </p>
+
+            </article>
+
+            <article class="summary-card">
+
+                <div class="card-heading">
+                    <p>Wind speed</p>
+                    <span>Current</span>
+                </div>
+
+                <h3 id="currentWind">12 km/h</h3>
+
+                <p class="card-status">
+                    Light wind
+                </p>
+
+            </article>
+
+            <article class="summary-card">
+
+                <div class="card-heading">
+                    <p>Rain chance</p>
+                    <span>Today</span>
+                </div>
+
+                <h3 id="currentRain">35%</h3>
+
+                <p class="card-status">
+                    Possible afternoon rain
+                </p>
+
+            </article>
+
+        </section>
+
+        <!-- Weather information -->
+        <section class="weather-page-grid">
+
+            <!-- Current conditions -->
+            <article class="dashboard-panel current-weather-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Current weather</p>
+                        <h3>Farm conditions</h3>
+                    </div>
+
+                    <select id="weatherLocation"
+                            aria-label="Select field location">
+
+                        <option value="North Corn Field">
+                            North Corn Field
+                        </option>
+
+                        <option value="Eastern Corn Field">
+                            Eastern Corn Field
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="current-weather-main">
+
+                    <div>
+                        <p id="weatherDate">Today</p>
+                        <h4 id="largeTemperature">25°C</h4>
+                        <strong id="weatherDescription">
+                            Partly cloudy
+                        </strong>
+                    </div>
+
+                    <div class="temperature-range">
+
+                        <span>Maximum</span>
+                        <strong id="maximumTemperature">29°C</strong>
+
+                        <span>Minimum</span>
+                        <strong id="minimumTemperature">17°C</strong>
+
+                    </div>
+
+                </div>
+
+                <div class="weather-condition-grid">
+
+                    <div>
+                        <span>Feels like</span>
+                        <strong id="feelsLike">26°C</strong>
+                    </div>
+
+                    <div>
+                        <span>Wind direction</span>
+                        <strong id="windDirection">South East</strong>
+                    </div>
+
+                    <div>
+                        <span>Visibility</span>
+                        <strong id="visibility">10 km</strong>
+                    </div>
+
+                    <div>
+                        <span>Air pressure</span>
+                        <strong id="airPressure">1014 hPa</strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- Farming advice -->
+            <article class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Farm guidance</p>
+                        <h3>Weather advice</h3>
+                    </div>
+
+                </div>
+
+                <div class="weather-advice-list">
+
+                    <div class="weather-advice-item">
+
+                        <span class="advice-level suitable"></span>
+
+                        <div>
+                            <h4>Suitable field conditions</h4>
+
+                            <p>
+                                Conditions are suitable for routine field work.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="weather-advice-item">
+
+                        <span class="advice-level caution"></span>
+
+                        <div>
+                            <h4>Review irrigation schedule</h4>
+
+                            <p>
+                                Rain may reduce the amount of water required.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="weather-advice-item">
+
+                        <span class="advice-level suitable"></span>
+
+                        <div>
+                            <h4>Low wind risk</h4>
+
+                            <p>
+                                Wind conditions are currently stable.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- Forecast -->
+            <article class="dashboard-panel forecast-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Upcoming conditions</p>
+                        <h3>Five-day forecast</h3>
+                    </div>
+
+                </div>
+
+                <div class="forecast-grid">
+
+                    <div class="forecast-card">
+                        <p>Today</p>
+                        <h4>25°C</h4>
+                        <span>Partly cloudy</span>
+                        <strong>35% rain</strong>
+                    </div>
+
+                    <div class="forecast-card">
+                        <p>Tomorrow</p>
+                        <h4>23°C</h4>
+                        <span>Light rain</span>
+                        <strong>65% rain</strong>
+                    </div>
+
+                    <div class="forecast-card">
+                        <p>Day 3</p>
+                        <h4>24°C</h4>
+                        <span>Cloudy</span>
+                        <strong>30% rain</strong>
+                    </div>
+
+                    <div class="forecast-card">
+                        <p>Day 4</p>
+                        <h4>27°C</h4>
+                        <span>Clear</span>
+                        <strong>10% rain</strong>
+                    </div>
+
+                    <div class="forecast-card">
+                        <p>Day 5</p>
+                        <h4>28°C</h4>
+                        <span>Clear</span>
+                        <strong>8% rain</strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <footer class="dashboard-footer">
+
+            <p>
+                Last weather update:
+                <span id="weatherLastUpdated">
+                    Waiting for data
+                </span>
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="weather.js"></script>
+
+</body>
+
+</html>

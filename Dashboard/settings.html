@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FarmSense - Settings</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styleDashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="dashboard-brand">
+
+            <div class="brand-mark">FS</div>
+
+            <div>
+                <h1>FarmSense</h1>
+                <p>Precision Farming</p>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html"
+               class="nav-link">
+                Overview
+            </a>
+
+            <a href="fields.html"
+               class="nav-link">
+                Fields
+            </a>
+
+            <a href="cropHealth.html"
+               class="nav-link">
+                Crop Health
+            </a>
+
+            <a href="irrigation.html"
+               class="nav-link">
+                Irrigation
+            </a>
+
+            <a href="weather.html"
+               class="nav-link">
+                Weather
+            </a>
+
+            <a href="reports.html"
+               class="nav-link">
+                Reports
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <a href="settings.html"
+               class="nav-link active">
+                Settings
+            </a>
+
+            <button type="button"
+                    id="logoutButton"
+                    class="logout-button">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+                <p class="page-label">Account preferences</p>
+
+                <h2>Settings</h2>
+
+                <p class="header-description">
+                    Manage your farm profile and dashboard preferences.
+                </p>
+            </div>
+
+        </header>
+
+        <!-- Settings layout -->
+        <section class="settings-page-grid">
+
+            <!-- Farm profile -->
+            <article class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Farm information</p>
+                        <h3>Farm profile</h3>
+                    </div>
+
+                </div>
+
+                <form id="farmProfileForm">
+
+                    <div class="settings-form-group">
+
+                        <label for="farmName">
+                            Farm name
+                        </label>
+
+                        <input type="text"
+                               id="farmName"
+                               value="Morrow Farms"
+                               required>
+
+                    </div>
+
+                    <div class="settings-form-group">
+
+                        <label for="managerName">
+                            Farm manager
+                        </label>
+
+                        <input type="text"
+                               id="managerName"
+                               value="Farm Manager"
+                               required>
+
+                    </div>
+
+                    <div class="settings-form-group">
+
+                        <label for="farmLocation">
+                            Farm location
+                        </label>
+
+                        <input type="text"
+                               id="farmLocation"
+                               value="Cape Town, South Africa"
+                               required>
+
+                    </div>
+
+                    <div class="settings-form-group">
+
+                        <label for="contactEmail">
+                            Contact email
+                        </label>
+
+                        <input type="email"
+                               id="contactEmail"
+                               value="manager@farmsense.co.za"
+                               required>
+
+                    </div>
+
+                    <button type="submit"
+                            class="primary-button">
+                        Save farm profile
+                    </button>
+
+                    <p id="profileMessage"
+                       class="settings-message">
+                    </p>
+
+                </form>
+
+            </article>
+
+            <!-- Dashboard preferences -->
+            <article class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Dashboard display</p>
+                        <h3>Preferences</h3>
+                    </div>
+
+                </div>
+
+                <form id="preferencesForm">
+
+                    <div class="settings-form-group">
+
+                        <label for="temperatureUnit">
+                            Temperature unit
+                        </label>
+
+                        <select id="temperatureUnit">
+
+                            <option value="celsius">
+                                Celsius
+                            </option>
+
+                            <option value="fahrenheit">
+                                Fahrenheit
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="settings-form-group">
+
+                        <label for="areaUnit">
+                            Field area unit
+                        </label>
+
+                        <select id="areaUnit">
+
+                            <option value="hectares">
+                                Hectares
+                            </option>
+
+                            <option value="acres">
+                                Acres
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="settings-form-group">
+
+                        <label for="refreshInterval">
+                            Data refresh interval
+                        </label>
+
+                        <select id="refreshInterval">
+
+                            <option value="5">
+                                Every 5 seconds
+                            </option>
+
+                            <option value="10">
+                                Every 10 seconds
+                            </option>
+
+                            <option value="30">
+                                Every 30 seconds
+                            </option>
+
+                            <option value="60">
+                                Every 1 minute
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button type="submit"
+                            class="primary-button">
+                        Save preferences
+                    </button>
+
+                    <p id="preferencesMessage"
+                       class="settings-message">
+                    </p>
+
+                </form>
+
+            </article>
+
+            <!-- Notifications -->
+            <article class="dashboard-panel settings-wide-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="panel-label">Farm alerts</p>
+                        <h3>Notification settings</h3>
+                    </div>
+
+                </div>
+
+                <div class="notification-list">
+
+                    <div class="notification-setting">
+
+                        <div>
+                            <h4>Low soil moisture</h4>
+
+                            <p>
+                                Receive an alert when moisture falls
+                                below the selected threshold.
+                            </p>
+                        </div>
+
+                        <label class="switch">
+
+                            <input type="checkbox"
+                                   id="moistureNotifications"
+                                   checked>
+
+                            <span class="switch-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                    <div class="notification-setting">
+
+                        <div>
+                            <h4>Crop health warnings</h4>
+
+                            <p>
+                                Receive alerts about possible crop
+                                disease or plant stress.
+                            </p>
+                        </div>
+
+                        <label class="switch">
+
+                            <input type="checkbox"
+                                   id="cropNotifications"
+                                   checked>
+
+                            <span class="switch-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                    <div class="notification-setting">
+
+                        <div>
+                            <h4>Weather warnings</h4>
+
+                            <p>
+                                Receive notifications about rain,
+                                strong wind or extreme temperature.
+                            </p>
+                        </div>
+
+                        <label class="switch">
+
+                            <input type="checkbox"
+                                   id="weatherNotifications"
+                                   checked>
+
+                            <span class="switch-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                    <div class="notification-setting">
+
+                        <div>
+                            <h4>Irrigation updates</h4>
+
+                            <p>
+                                Receive updates when irrigation starts,
+                                pauses or finishes.
+                            </p>
+                        </div>
+
+                        <label class="switch">
+
+                            <input type="checkbox"
+                                   id="irrigationNotifications">
+
+                            <span class="switch-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <button type="button"
+                        id="saveNotificationsButton"
+                        class="primary-button settings-save-button">
+                    Save notifications
+                </button>
+
+                <p id="notificationsMessage"
+                   class="settings-message">
+                </p>
+
+            </article>
+
+        </section>
+
+        <footer class="dashboard-footer">
+
+            <p>
+                FarmSense settings are stored temporarily
+                in this browser.
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="settings.js"></script>
+
+</body>
+
+</html>
