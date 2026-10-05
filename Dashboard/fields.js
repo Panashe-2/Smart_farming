@@ -1,19 +1,93 @@
-// Get the Fields page elements
+const API_URL = "http://localhost:3000/api";
+
 const addFieldButton = document.getElementById("addFieldButton");
 const fieldFilter = document.getElementById("fieldFilter");
 const fieldGrid = document.getElementById("fieldGrid");
 const totalFields = document.getElementById("totalFields");
 const logoutButton = document.getElementById("logoutButton");
 
-// Count the field cards currently displayed
 function updateFieldCount() {
     const fieldCards = fieldGrid.querySelectorAll(".field-card");
     totalFields.textContent = fieldCards.length;
 }
 
-// Filter fields according to their status
+function createFieldCard(field) {
+    const fieldCard = document.createElement("article");
+    const statusClass = field.status.toLowerCase();
+
+    fieldCard.className = "field-card";
+    fieldCard.dataset.id = field.id;
+    fieldCard.dataset.status = statusClass;
+
+    fieldCard.innerHTML = `
+        <div class="field-card-header">
+            <div>
+                <p>Field ${String(field.id).padStart(2, "0")}</p>
+                <h3>${field.name}</h3>
+            </div>
+
+            <span class="field-status ${statusClass}">
+                ${field.status}
+            </span>
+        </div>
+
+        <div class="field-details">
+            <div>
+                <span>Crop</span>
+                <strong>${field.crop}</strong>
+            </div>
+
+            <div>
+                <span>Area</span>
+                <strong>${field.area} hectares</strong>
+            </div>
+
+            <div>
+                <span>Soil moisture</span>
+                <strong>${field.soilMoisture}%</strong>
+            </div>
+
+            <div>
+                <span>Temperature</span>
+                <strong>${field.temperature}°C</strong>
+            </div>
+        </div>
+
+        <button type="button" class="view-field-button">
+            View field details
+        </button>
+    `;
+
+    return fieldCard;
+}
+
+async function loadFields() {
+    try {
+        const response = await fetch(`${API_URL}/fields`);
+
+        if (!response.ok) {
+            throw new Error("Unable to load fields");
+        }
+
+        const result = await response.json();
+
+        fieldGrid.innerHTML = "";
+
+        result.data.forEach(function (field) {
+            fieldGrid.appendChild(createFieldCard(field));
+        });
+
+        updateFieldCount();
+    } catch (error) {
+        console.error(error);
+        alert(
+            "The fields could not be loaded. Make sure the backend server is running."
+        );
+    }
+}
+
 fieldFilter.addEventListener("change", function () {
-    const selectedStatus = fieldFilter.value;
+    const selectedStatus = fieldFilter.value.toLowerCase();
     const fieldCards = fieldGrid.querySelectorAll(".field-card");
 
     fieldCards.forEach(function (fieldCard) {
@@ -30,101 +104,44 @@ fieldFilter.addEventListener("change", function () {
     });
 });
 
-// Add a temporary field
 addFieldButton.addEventListener("click", function () {
-    const fieldName = prompt("Enter the field name:");
-
-    if (fieldName === null || fieldName.trim() === "") {
-        return;
-    }
-
-    const cropName = prompt("Enter the crop name:");
-
-    if (cropName === null || cropName.trim() === "") {
-        return;
-    }
-
-    const fieldArea = prompt("Enter the field area in hectares:");
-
-    if (
-        fieldArea === null ||
-        fieldArea.trim() === "" ||
-        isNaN(fieldArea) ||
-        Number(fieldArea) <= 0
-    ) {
-        alert("Please enter a valid field area.");
-        return;
-    }
-
-    const fieldNumber =
-        fieldGrid.querySelectorAll(".field-card").length + 1;
-
-    const newFieldCard = document.createElement("article");
-
-    newFieldCard.className = "field-card";
-    newFieldCard.dataset.status = "healthy";
-
-    newFieldCard.innerHTML = `
-        <div class="field-card-header">
-            <div>
-                <p>Field ${String(fieldNumber).padStart(2, "0")}</p>
-                <h3>${fieldName}</h3>
-            </div>
-
-            <span class="field-status healthy">
-                Healthy
-            </span>
-        </div>
-
-        <div class="field-details">
-            <div>
-                <span>Crop</span>
-                <strong>${cropName}</strong>
-            </div>
-
-            <div>
-                <span>Area</span>
-                <strong>${fieldArea} hectares</strong>
-            </div>
-
-            <div>
-                <span>Soil moisture</span>
-                <strong>Waiting for data</strong>
-            </div>
-
-            <div>
-                <span>Temperature</span>
-                <strong>Waiting for data</strong>
-            </div>
-        </div>
-
-        <button type="button"
-                class="view-field-button">
-            View field details
-        </button>
-    `;
-
-    fieldGrid.appendChild(newFieldCard);
-
-    updateFieldCount();
-
-    alert("The field was added temporarily.");
+    alert(
+        "Adding fields will be connected to the backend in the next step."
+    );
 });
 
-// Open field details
-fieldGrid.addEventListener("click", function (event) {
-    if (event.target.classList.contains("view-field-button")) {
-        const fieldCard = event.target.closest(".field-card");
-        const fieldName = fieldCard.querySelector("h3").textContent;
+fieldGrid.addEventListener("click", async function (event) {
+    if (!event.target.classList.contains("view-field-button")) {
+        return;
+    }
+
+    const fieldCard = event.target.closest(".field-card");
+    const fieldId = fieldCard.dataset.id;
+
+    try {
+        const response = await fetch(`${API_URL}/fields/${fieldId}`);
+
+        if (!response.ok) {
+            throw new Error("Field not found");
+        }
+
+        const result = await response.json();
+        const field = result.data;
 
         alert(
-            fieldName +
-            " details will be connected to live data later."
+            `${field.name}\n` +
+            `Crop: ${field.crop}\n` +
+            `Area: ${field.area} hectares\n` +
+            `Soil moisture: ${field.soilMoisture}%\n` +
+            `Temperature: ${field.temperature}°C\n` +
+            `Status: ${field.status}`
         );
+    } catch (error) {
+        console.error(error);
+        alert("The field details could not be loaded.");
     }
 });
 
-// Log out and return to the login page
 logoutButton.addEventListener("click", function () {
     const shouldLogout = confirm(
         "Are you sure you want to log out?"
@@ -135,5 +152,4 @@ logoutButton.addEventListener("click", function () {
     }
 });
 
-// Set the correct number when the page loads
-updateFieldCount();
+loadFields();
