@@ -1,9 +1,7 @@
-
 // FARMSENSE CROP HEALTH PAGE
-// Temporary data until the ML model is ready
 
+const API_URL = "http://localhost:3000/api";
 
-// Get elements from the Crop Health page
 const uploadCropButton =
     document.getElementById("uploadCropButton");
 
@@ -35,7 +33,6 @@ uploadCropButton.addEventListener("click", function () {
     cropImageInput.click();
 });
 
-// Display the selected image's filename
 cropImageInput.addEventListener("change", function () {
     const selectedFile = cropImageInput.files[0];
 
@@ -59,7 +56,6 @@ cropImageInput.addEventListener("change", function () {
 
 // FILTER FIELD HEALTH INFORMATION
 
-
 healthFieldFilter.addEventListener("change", function () {
     const selectedField = healthFieldFilter.value;
 
@@ -81,33 +77,60 @@ healthFieldFilter.addEventListener("change", function () {
 });
 
 
-// UPDATE TEMPORARY HEALTH DATA
+// LOAD CROP HEALTH DATA FROM THE BACKEND
 
+async function loadCropHealthData() {
+    try {
+        const response = await fetch(
+            `${API_URL}/crop-health`
+        );
 
-function updateHealthData() {
-    // Temporary values for testing the dashboard
-    const newHealthyValue = randomNumber(80, 92);
-    const newMonitorValue = 100 - newHealthyValue;
+        if (!response.ok) {
+            throw new Error(
+                "Unable to load crop-health data"
+            );
+        }
 
-    healthyAreas.textContent =
-        newHealthyValue + "%";
+        const result = await response.json();
+        const cropHealthData = result.data;
 
-    areasToMonitor.textContent =
-        newMonitorValue + "%";
+        const healthyCount = cropHealthData.filter(
+            (field) => field.healthStatus === "Healthy"
+        ).length;
 
-    updateHealthTime();
-}
+        const monitorCount =
+            cropHealthData.length - healthyCount;
 
-// Generate a random whole number
-function randomNumber(minimum, maximum) {
-    return Math.floor(
-        Math.random() * (maximum - minimum + 1)
-    ) + minimum;
+        const healthyPercentage = Math.round(
+            (healthyCount / cropHealthData.length) * 100
+        );
+
+        const monitorPercentage = Math.round(
+            (monitorCount / cropHealthData.length) * 100
+        );
+
+        healthyAreas.textContent =
+            healthyPercentage + "%";
+
+        areasToMonitor.textContent =
+            monitorPercentage + "%";
+
+        updateHealthTime();
+    } catch (error) {
+        console.error(error);
+
+        healthyAreas.textContent = "Unavailable";
+        areasToMonitor.textContent = "Unavailable";
+
+        alert(
+            "Crop-health data could not be loaded. " +
+            "Make sure the backend server is running."
+        );
+    }
 }
 
 
 // UPDATE LAST UPDATED TIME
-
 
 function updateHealthTime() {
     const currentTime = new Date();
@@ -119,7 +142,6 @@ function updateHealthTime() {
 
 // LOG OUT
 
-
 logoutButton.addEventListener("click", function () {
     const shouldLogout = confirm(
         "Are you sure you want to log out?"
@@ -130,8 +152,10 @@ logoutButton.addEventListener("click", function () {
     }
 });
 
-// Display the current time when the page opens
-updateHealthTime();
 
-// Update temporary health data every ten seconds
-setInterval(updateHealthData, 10000);
+// LOAD DATA WHEN THE PAGE OPENS
+
+loadCropHealthData();
+
+// Refresh backend data every 30 seconds
+setInterval(loadCropHealthData, 30000);

@@ -1,9 +1,11 @@
-
 // FARMSENSE WEATHER PAGE
-// Temporary data until the backend is connected
+
+const WEATHER_API_URL =
+    "http://localhost:3000/api/weather";
 
 
-// Get weather page elements
+// GET WEATHER PAGE ELEMENTS
+
 const currentTemperature =
     document.getElementById("currentTemperature");
 
@@ -41,39 +43,48 @@ const logoutButton =
     document.getElementById("logoutButton");
 
 
-// TEMPORARY WEATHER INFORMATION
+// LOAD WEATHER DATA FROM BACKEND
 
+async function loadWeatherData() {
+    try {
+        const response = await fetch(
+            WEATHER_API_URL
+        );
 
-const fieldWeatherData = {
-    "North Corn Field": {
-        temperature: 25,
-        humidity: 61,
-        wind: 12,
-        rain: 35,
-        description: "Partly cloudy",
-        maximum: 29,
-        minimum: 17,
-        feelsLike: 26
-    },
+        if (!response.ok) {
+            throw new Error(
+                "Unable to load weather data"
+            );
+        }
 
-    "Eastern Corn Field": {
-        temperature: 23,
-        humidity: 68,
-        wind: 16,
-        rain: 45,
-        description: "Cloudy",
-        maximum: 27,
-        minimum: 16,
-        feelsLike: 24
+        const result = await response.json();
+        const weather = result.data;
+
+        displayWeather(weather);
+        displayLocation(weather.location);
+        displayCurrentDate();
+    } catch (error) {
+        console.error(error);
+
+        weatherDescription.textContent =
+            "Weather unavailable";
+
+        alert(
+            "Weather data could not be loaded. " +
+            "Make sure the backend server is running."
+        );
     }
-};
+}
 
 
 // DISPLAY WEATHER INFORMATION
 
-
-function displayWeather(fieldName) {
-    const weather = fieldWeatherData[fieldName];
+function displayWeather(weather) {
+    const todayForecast =
+        weather.forecast &&
+        weather.forecast.length > 0
+            ? weather.forecast[0]
+            : null;
 
     currentTemperature.textContent =
         weather.temperature + "°C";
@@ -82,38 +93,52 @@ function displayWeather(fieldName) {
         weather.humidity + "%";
 
     currentWind.textContent =
-        weather.wind + " km/h";
+        weather.windSpeed + " km/h";
 
     currentRain.textContent =
-        weather.rain + "%";
+        weather.rainfallChance + "%";
 
     largeTemperature.textContent =
         weather.temperature + "°C";
 
     weatherDescription.textContent =
-        weather.description;
+        weather.condition;
 
-    maximumTemperature.textContent =
-        weather.maximum + "°C";
+    if (todayForecast) {
+        maximumTemperature.textContent =
+            todayForecast.maximumTemperature + "°C";
 
-    minimumTemperature.textContent =
-        weather.minimum + "°C";
+        minimumTemperature.textContent =
+            todayForecast.minimumTemperature + "°C";
+    } else {
+        maximumTemperature.textContent =
+            weather.temperature + "°C";
+
+        minimumTemperature.textContent =
+            weather.temperature + "°C";
+    }
 
     feelsLike.textContent =
-        weather.feelsLike + "°C";
+        weather.temperature + "°C";
 }
 
 
-// CHANGE FIELD LOCATION
+// DISPLAY WEATHER LOCATION
 
+function displayLocation(location) {
+    weatherLocation.innerHTML = "";
 
-weatherLocation.addEventListener("change", function () {
-    displayWeather(weatherLocation.value);
-});
+    const locationOption =
+        document.createElement("option");
+
+    locationOption.value = location;
+    locationOption.textContent = location;
+
+    weatherLocation.appendChild(locationOption);
+}
 
 
 // DISPLAY CURRENT DATE
-
 
 function displayCurrentDate() {
     const currentDate = new Date();
@@ -131,57 +156,17 @@ function displayCurrentDate() {
 }
 
 
-// TEMPORARY LIVE WEATHER CHANGES
+// REFRESH WEATHER WHEN LOCATION CHANGES
 
-
-function updateTemporaryWeather() {
-    const selectedField = weatherLocation.value;
-    const weather = fieldWeatherData[selectedField];
-
-    const temperatureChange =
-        randomNumber(-1, 1);
-
-    const humidityChange =
-        randomNumber(-2, 2);
-
-    weather.temperature =
-        limitValue(
-            weather.temperature + temperatureChange,
-            15,
-            35
-        );
-
-    weather.humidity =
-        limitValue(
-            weather.humidity + humidityChange,
-            30,
-            90
-        );
-
-    weather.feelsLike =
-        weather.temperature + 1;
-
-    displayWeather(selectedField);
-}
-
-// Generate a random whole number
-function randomNumber(minimum, maximum) {
-    return Math.floor(
-        Math.random() * (maximum - minimum + 1)
-    ) + minimum;
-}
-
-// Keep a value within a specified range
-function limitValue(value, minimum, maximum) {
-    return Math.min(
-        Math.max(value, minimum),
-        maximum
-    );
-}
+weatherLocation.addEventListener(
+    "change",
+    function () {
+        loadWeatherData();
+    }
+);
 
 
 // LOG OUT
-
 
 logoutButton.addEventListener("click", function () {
     const shouldLogout = confirm(
@@ -193,9 +178,10 @@ logoutButton.addEventListener("click", function () {
     }
 });
 
-// Display the initial data
-displayCurrentDate();
-displayWeather(weatherLocation.value);
 
-// Temporarily update weather every ten seconds
-setInterval(updateTemporaryWeather, 10000);
+// INITIALISE PAGE
+
+loadWeatherData();
+
+// Refresh weather data every 60 seconds
+setInterval(loadWeatherData, 60000);

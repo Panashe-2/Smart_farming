@@ -1,9 +1,11 @@
-
 // FARMSENSE IRRIGATION PAGE
-// Temporary controls until backend connection
+
+const IRRIGATION_API_URL =
+    "http://localhost:3000/api/irrigation";
 
 
-// Get page elements
+// GET PAGE ELEMENTS
+
 const startButton =
     document.getElementById("startButton");
 
@@ -58,14 +60,178 @@ const irrigationLastUpdated =
 const logoutButton =
     document.getElementById("logoutButton");
 
-// Temporary irrigation state
-let irrigationRunning = true;
-let irrigationProgress = 72;
-let moistureLevel = 68;
+
+// IRRIGATION STATE
+
+let irrigationRunning = false;
+let irrigationProgress = 0;
+let moistureLevel = 0;
+let irrigationRecords = [];
+
+
+// LOAD IRRIGATION DATA FROM BACKEND
+
+async function loadIrrigationData() {
+    try {
+        const response = await fetch(
+            IRRIGATION_API_URL
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "Unable to load irrigation data"
+            );
+        }
+
+        const result = await response.json();
+
+        irrigationRecords = result.data;
+
+        displayFieldOptions();
+        displayIrrigationSchedule();
+
+        const firstRecord = irrigationRecords[0];
+
+        if (firstRecord) {
+            displaySelectedField(firstRecord);
+        }
+
+        const scheduledSystems =
+            irrigationRecords.filter(
+                function (record) {
+                    return (
+                        record.irrigationStatus ===
+                        "Scheduled"
+                    );
+                }
+            ).length;
+
+        activeSystems.textContent =
+            scheduledSystems;
+
+        systemStatus.textContent =
+            scheduledSystems > 0
+                ? "Scheduled"
+                : "Ready";
+
+        updateLastUpdatedTime();
+    } catch (error) {
+        console.error(error);
+
+        systemStatus.textContent =
+            "Unavailable";
+
+        activeSystems.textContent = "0";
+
+        alert(
+            "Irrigation data could not be loaded. " +
+            "Make sure the backend server is running."
+        );
+    }
+}
+
+
+// DISPLAY FIELD OPTIONS
+
+function displayFieldOptions() {
+    irrigationField.innerHTML = "";
+
+    irrigationRecords.forEach(function (record) {
+        const option =
+            document.createElement("option");
+
+        option.value = record.fieldId;
+        option.textContent = record.fieldName;
+
+        irrigationField.appendChild(option);
+    });
+}
+
+
+// DISPLAY IRRIGATION SCHEDULE
+
+function displayIrrigationSchedule() {
+    scheduleTableBody.innerHTML = "";
+
+    irrigationRecords.forEach(function (record) {
+        const newRow =
+            document.createElement("tr");
+
+        const statusClass =
+            record.irrigationStatus === "Scheduled"
+                ? "scheduled"
+                : "completed";
+
+        newRow.innerHTML = `
+            <td>${record.fieldName}</td>
+            <td>${record.nextSchedule}</td>
+            <td>${record.waterUsedLitres} litres</td>
+            <td>
+                <span class="schedule-status ${statusClass}">
+                    ${record.irrigationStatus}
+                </span>
+            </td>
+        `;
+
+        scheduleTableBody.appendChild(newRow);
+    });
+}
+
+
+// DISPLAY SELECTED FIELD
+
+function displaySelectedField(record) {
+    selectedFieldName.textContent =
+        record.fieldName;
+
+    moistureLevel =
+        Number(record.soilMoisture);
+
+    irrigationProgress = 0;
+    irrigationRunning = false;
+
+    currentMoisture.textContent =
+        moistureLevel + "%";
+
+    irrigationProgressBar.style.width =
+        irrigationProgress + "%";
+
+    irrigationProgressText.textContent =
+        irrigationProgress + "%";
+
+    systemStatus.textContent =
+        record.irrigationStatus;
+
+    updateLastUpdatedTime();
+}
+
+
+// CHANGE SELECTED FIELD
+
+irrigationField.addEventListener(
+    "change",
+    function () {
+        const selectedFieldId =
+            Number(irrigationField.value);
+
+        const selectedRecord =
+            irrigationRecords.find(
+                function (record) {
+                    return (
+                        record.fieldId ===
+                        selectedFieldId
+                    );
+                }
+            );
+
+        if (selectedRecord) {
+            displaySelectedField(selectedRecord);
+        }
+    }
+);
 
 
 // START IRRIGATION
-
 
 startButton.addEventListener("click", function () {
     irrigationRunning = true;
@@ -79,7 +245,6 @@ startButton.addEventListener("click", function () {
 
 // PAUSE IRRIGATION
 
-
 pauseButton.addEventListener("click", function () {
     irrigationRunning = false;
 
@@ -91,7 +256,6 @@ pauseButton.addEventListener("click", function () {
 
 
 // STOP IRRIGATION
-
 
 stopButton.addEventListener("click", function () {
     const shouldStop = confirm(
@@ -115,7 +279,6 @@ stopButton.addEventListener("click", function () {
 
 // UPDATE IRRIGATION PROGRESS
 
-
 function updateIrrigation() {
     if (!irrigationRunning) {
         return;
@@ -125,13 +288,16 @@ function updateIrrigation() {
         irrigationProgress++;
     }
 
-    if (moistureLevel < 75) {
+    const moistureTarget =
+        Number(targetMoistureInput.value) || 75;
+
+    if (moistureLevel < moistureTarget) {
         moistureLevel++;
     }
 
     if (
         irrigationProgress >= 100 ||
-        moistureLevel >= 75
+        moistureLevel >= moistureTarget
     ) {
         irrigationProgress = 100;
         irrigationRunning = false;
@@ -143,6 +309,9 @@ function updateIrrigation() {
     updateProgressDisplay();
     updateLastUpdatedTime();
 }
+
+
+// UPDATE PROGRESS DISPLAY
 
 function updateProgressDisplay() {
     irrigationProgressBar.style.width =
@@ -156,49 +325,31 @@ function updateProgressDisplay() {
 }
 
 
-// CHANGE SELECTED FIELD
-
-
-irrigationField.addEventListener("change", function () {
-    selectedFieldName.textContent =
-        irrigationField.value;
-
-    irrigationProgress = 0;
-    moistureLevel = 58;
-    irrigationRunning = false;
-
-    systemStatus.textContent = "Ready";
-    activeSystems.textContent = "0";
-
-    updateProgressDisplay();
-    updateLastUpdatedTime();
-});
-
-
 // SAVE IRRIGATION SETTINGS
-
 
 irrigationSettingsForm.addEventListener(
     "submit",
     function (event) {
         event.preventDefault();
 
-        const threshold =
-            Number(
-                document.getElementById(
-                    "moistureThreshold"
-                ).value
+        const moistureThreshold =
+            document.getElementById(
+                "moistureThreshold"
             );
+
+        const maximumDuration =
+            document.getElementById(
+                "maximumDuration"
+            );
+
+        const threshold =
+            Number(moistureThreshold.value);
 
         const newTarget =
             Number(targetMoistureInput.value);
 
         const duration =
-            Number(
-                document.getElementById(
-                    "maximumDuration"
-                ).value
-            );
+            Number(maximumDuration.value);
 
         if (
             threshold < 0 ||
@@ -231,68 +382,72 @@ irrigationSettingsForm.addEventListener(
 );
 
 
-// ADD IRRIGATION SCHEDULE
+// ADD TEMPORARY IRRIGATION SCHEDULE
 
+addScheduleButton.addEventListener(
+    "click",
+    function () {
+        const fieldName = prompt(
+            "Enter the field name:"
+        );
 
-addScheduleButton.addEventListener("click", function () {
-    const fieldName = prompt(
-        "Enter the field name:"
-    );
+        if (
+            fieldName === null ||
+            fieldName.trim() === ""
+        ) {
+            return;
+        }
 
-    if (
-        fieldName === null ||
-        fieldName.trim() === ""
-    ) {
-        return;
+        const startTime = prompt(
+            "Enter the start time, for example 06:00:"
+        );
+
+        if (
+            startTime === null ||
+            startTime.trim() === ""
+        ) {
+            return;
+        }
+
+        const duration = prompt(
+            "Enter the duration in minutes:"
+        );
+
+        if (
+            duration === null ||
+            duration.trim() === "" ||
+            isNaN(duration) ||
+            Number(duration) <= 0
+        ) {
+            alert(
+                "Please enter a valid duration."
+            );
+
+            return;
+        }
+
+        const newRow =
+            document.createElement("tr");
+
+        newRow.innerHTML = `
+            <td>${fieldName}</td>
+            <td>${startTime}</td>
+            <td>${duration} minutes</td>
+            <td>
+                <span class="schedule-status scheduled">
+                    Scheduled
+                </span>
+            </td>
+        `;
+
+        scheduleTableBody.appendChild(newRow);
+
+        updateLastUpdatedTime();
     }
-
-    const startTime = prompt(
-        "Enter the start time, for example 06:00:"
-    );
-
-    if (
-        startTime === null ||
-        startTime.trim() === ""
-    ) {
-        return;
-    }
-
-    const duration = prompt(
-        "Enter the duration in minutes:"
-    );
-
-    if (
-        duration === null ||
-        duration.trim() === "" ||
-        isNaN(duration) ||
-        Number(duration) <= 0
-    ) {
-        alert("Please enter a valid duration.");
-        return;
-    }
-
-    const newRow =
-        document.createElement("tr");
-
-    newRow.innerHTML = `
-        <td>${fieldName}</td>
-        <td>${startTime}</td>
-        <td>${duration} minutes</td>
-        <td>
-            <span class="schedule-status scheduled">
-                Scheduled
-            </span>
-        </td>
-    `;
-
-    scheduleTableBody.appendChild(newRow);
-
-    updateLastUpdatedTime();
-});
+);
 
 
-// UPDATE TIME
-
+// UPDATE LAST UPDATED TIME
 
 function updateLastUpdatedTime() {
     const currentTime = new Date();
@@ -304,7 +459,6 @@ function updateLastUpdatedTime() {
 
 // LOG OUT
 
-
 logoutButton.addEventListener("click", function () {
     const shouldLogout = confirm(
         "Are you sure you want to log out?"
@@ -315,9 +469,10 @@ logoutButton.addEventListener("click", function () {
     }
 });
 
-// Display initial values
-updateProgressDisplay();
-updateLastUpdatedTime();
 
-// Temporarily update irrigation every three seconds
+// INITIALISE PAGE
+
+loadIrrigationData();
+
+// Update an active irrigation process every three seconds
 setInterval(updateIrrigation, 3000);
