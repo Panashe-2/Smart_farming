@@ -26,7 +26,7 @@ The database contains six tables:
 
 The initial database migration is located at:
 
-`migrations/001_initial_schema.sql`
+`supabase/migrations/001_initial_schema.sql`
 
 It defines:
 - The six database tables and their columns.
