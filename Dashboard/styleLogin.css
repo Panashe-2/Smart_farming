@@ -126,3 +126,74 @@ input:focus { border-color: #3f7548; }
   .screen { grid-template-columns: 1fr; }
   .hero { min-height: 300px; }
 }
+
+/* ==========================================
+   REGISTER SECTION
+========================================== */
+
+.register-section {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.register-section p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+/* REGISTER BUTTON */
+
+.register-button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    background-color: #245234;
+    color: #ffffff;
+
+    padding: 13px 20px;
+
+    border: 1px solid #245234;
+    border-radius: 8px;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* HOVER */
+
+.register-button:hover {
+    background-color: #173b29;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* KEYBOARD ACCESSIBILITY */
+
+.register-button:focus-visible {
+    outline: 3px solid #96c4a2;
+    outline-offset: 3px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .register-section {
+        margin-top: 16px;
+    }
+
+    .register-button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

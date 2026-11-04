@@ -1,62 +1,68 @@
 
-// SHOW OR HIDE PASSWORD
 
-
-const passwordInput =
-    document.getElementById("password");
-
-const toggleEye =
-    document.getElementById("toggleEye");
+// Show or hide password
+const passwordInput = document.getElementById("password");
+const toggleEye = document.getElementById("toggleEye");
+const loginForm = document.getElementById("loginForm");
+const emailInput = document.getElementById("email");
+const statusMessage = document.getElementById("statusMsg");
+const submitButton = loginForm.querySelector('[type="submit"]');
 
 toggleEye.addEventListener("click", function () {
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-    } else {
-        passwordInput.type = "password";
-    }
+    passwordInput.type =
+        passwordInput.type === "password"
+            ? "text"
+            : "password";
 });
 
-
-// TEMPORARY LOGIN
-
-
-const loginForm =
-    document.getElementById("loginForm");
-
-const emailInput =
-    document.getElementById("email");
-
-const statusMessage =
-    document.getElementById("statusMsg");
-
-loginForm.addEventListener("submit", function (event) {
+// Real Supabase login
+loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
+    const password = passwordInput.value;
 
-    if (email === "" || password === "") {
+    statusMessage.textContent = "";
+
+    if (!email || !password) {
         statusMessage.textContent =
             "Please enter your email and password.";
-
         return;
     }
 
-    if (password.length < 6) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Signing in...";
+
+    try {
+        const { data, error } =
+            await farmSenseAuth.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+        if (error) {
+            statusMessage.textContent =
+                "Login failed. Check your email, password, or email confirmation.";
+            return;
+        }
+
+        if (!data.user) {
+            statusMessage.textContent =
+                "Unable to verify your account.";
+            return;
+        }
+
         statusMessage.textContent =
-            "The password must contain at least six characters.";
+            "Login successful! Opening dashboard...";
 
-        return;
+        window.location.href = "http://127.0.0.1:5500/dashboard.html";
+
+    } catch (error) {
+        statusMessage.textContent =
+            "Unable to connect. Please try again.";
+
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Sign in to FarmSense";
     }
-
-    // Temporarily save the user's email in the browser
-    localStorage.setItem("farmSenseUserEmail", email);
-
-    statusMessage.textContent =
-        "Signed in successfully. Opening dashboard...";
-
-    // Open the dashboard after one second
-    setTimeout(function () {
-        window.location.href = "dashboard.html";
-    }, 1000);
 });
