@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Registration | FarmSense</title>
+
+    <!-- Registration page styling -->
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+    <main class="auth-card">
+
+        <!-- FarmSense Branding -->
+        <div class="logo">
+            🌱 FarmSense
+        </div>
+
+        <p class="subtitle">
+            Smart Farming Management System
+        </p>
+
+        <!-- Registration Heading -->
+        <h1>Create Farmer Account</h1>
+
+        <p class="description">
+            Register to manage your farming zones
+            and crop information.
+        </p>
+
+        <!-- Registration Form -->
+        <form id="registerForm">
+
+            <!-- Full Name -->
+            <label for="fullName">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                minlength="2"
+                maxlength="100"
+                required
+            >
+
+            <!-- Email Address -->
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
+
+            <!-- Password -->
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create a password"
+                autocomplete="new-password"
+                minlength="12"
+                required
+                aria-describedby="passwordHelp"
+            >
+
+            <p id="passwordHelp" class="password-help">
+                Your password must contain at least
+                12 characters.
+            </p>
+
+            <!-- Confirm Password -->
+            <label for="confirmPassword">
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                autocomplete="new-password"
+                minlength="12"
+                required
+            >
+
+            <!-- Registration Messages -->
+            <p
+                id="message"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <!-- Submit Registration -->
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <!-- Login Link -->
+        <p class="footer-text">
+            Already have an account?
+            <a href="index.html">Login here</a>
+        </p>
+
+    </main>
+
+    <!-- Supabase JavaScript Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Supabase Configuration -->
+    <script src="supabaseConfig.js"></script>
+
+    <!-- Registration Logic -->
+    <script src="register.js"></script>
+
+</body>
+
+</html>

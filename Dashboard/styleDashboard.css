@@ -1,0 +1,2267 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: rgb(242, 239, 230);
+    color: rgb(32, 36, 31);
+}
+
+button,
+select {
+    font: inherit;
+}
+
+/* Main layout */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 250px;
+    padding: 28px 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: rgb(23, 53, 31);
+    color: rgb(255, 255, 255);
+}
+
+/* Dashboard brand */
+.dashboard-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 0 8px 28px;
+
+    border-bottom: 1px solid rgb(255 255 255 / 12%);
+}
+
+.brand-mark {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgb(255 255 255 / 25%);
+    border-radius: 10px;
+
+    background: rgb(255 255 255 / 10%);
+    color: rgb(255, 255, 255);
+
+    font-family: "Playfair Display", serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.dashboard-brand h1 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+}
+
+.dashboard-brand p {
+    margin: 3px 0 0;
+
+    color: rgb(184, 201, 185);
+
+    font-size: 11px;
+}
+
+/* Sidebar navigation */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    margin-top: 30px;
+}
+
+.nav-link {
+    display: block;
+
+    padding: 12px 14px;
+
+    border-radius: 8px;
+
+    color: rgb(201, 213, 202);
+
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+    background: rgb(255 255 255 / 8%);
+    color: rgb(255, 255, 255);
+}
+
+.nav-link.active {
+    background: rgb(242, 239, 230);
+    color: rgb(23, 53, 31);
+
+    font-weight: 700;
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+    margin-top: auto;
+}
+
+.logout-button {
+    width: 100%;
+
+    margin-top: 7px;
+    padding: 12px 14px;
+
+    border: 1px solid rgb(255 255 255 / 20%);
+    border-radius: 8px;
+
+    background: rgb(0 0 0 / 0%);
+    color: rgb(255, 255, 255);
+
+    font-weight: 600;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background: rgb(255 255 255 / 8%);
+}
+
+/* Main content */
+.main-content {
+    grid-column: 2;
+
+    padding: 34px;
+}
+
+/* Dashboard header */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    margin-bottom: 30px;
+}
+
+.page-label,
+.panel-label {
+    margin: 0 0 5px;
+
+    color: rgb(165, 97, 50);
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.dashboard-header h2 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+    font-size: 31px;
+}
+
+.header-description {
+    margin: 7px 0 0;
+
+    color: rgb(105, 112, 102);
+
+    font-size: 14px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Live status */
+.live-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 13px;
+
+    border: 1px solid rgb(212, 221, 207);
+    border-radius: 20px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(56, 92, 62);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: rgb(77, 146, 89);
+
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgb(77 146 89 / 50%);
+    }
+
+    70% {
+        box-shadow: 0 0 0 7px rgb(77 146 89 / 0%);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgb(77 146 89 / 0%);
+    }
+}
+
+/* User profile */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-initials {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgb(219, 229, 215);
+    color: rgb(38, 74, 44);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.user-profile strong,
+.user-profile span {
+    display: block;
+}
+
+.user-profile strong {
+    font-size: 13px;
+}
+
+.user-profile span {
+    margin-top: 3px;
+
+    color: rgb(116, 122, 114);
+
+    font-size: 11px;
+}
+
+/* Summary cards */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    padding: 20px;
+
+    border: 1px solid rgb(222, 219, 206);
+    border-radius: 12px;
+
+    background: rgb(253, 252, 248);
+
+    box-shadow: 0 4px 18px rgb(44 57 42 / 5%);
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-heading p {
+    margin: 0;
+
+    color: rgb(101, 109, 99);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.card-heading span {
+    padding: 4px 7px;
+
+    border-radius: 10px;
+
+    background: rgb(231, 238, 228);
+    color: rgb(59, 112, 68);
+
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.summary-card h3 {
+    margin: 18px 0 8px;
+
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+}
+
+.card-status {
+    margin: 0;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 11px;
+}
+
+.card-status.positive {
+    color: rgb(71, 114, 77);
+}
+
+/* Dashboard grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* Dashboard panels */
+.dashboard-panel {
+    padding: 22px;
+
+    border: 1px solid rgb(222, 219, 206);
+    border-radius: 12px;
+
+    background: rgb(253, 252, 248);
+
+    box-shadow: 0 4px 18px rgb(44 57 42 / 5%);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.panel-header h3 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+}
+
+.panel-header select {
+    padding: 8px 11px;
+
+    border: 1px solid rgb(217, 211, 193);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(64, 72, 62);
+
+    outline: none;
+    cursor: pointer;
+}
+
+.panel-header select:focus {
+    border-color: rgb(71, 124, 80);
+}
+
+/* Chart */
+.chart-container {
+    position: relative;
+
+    height: 280px;
+}
+
+/* Irrigation panel */
+.system-status {
+    padding: 6px 9px;
+
+    border-radius: 12px;
+
+    background: rgb(228, 238, 226);
+    color: rgb(54, 102, 61);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.irrigation-content > p {
+    margin: 0 0 5px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 12px;
+}
+
+.irrigation-content h4 {
+    margin: 0 0 24px;
+
+    font-size: 16px;
+}
+
+.progress-track {
+    height: 9px;
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgb(228, 226, 216);
+}
+
+.progress-value {
+    width: 72%;
+    height: 100%;
+
+    border-radius: 20px;
+
+    background: rgb(71, 124, 80);
+
+    transition: width 0.4s ease;
+}
+
+.progress-details {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    color: rgb(102, 109, 99);
+
+    font-size: 11px;
+}
+
+.primary-button {
+    width: 100%;
+
+    margin-top: 27px;
+    padding: 11px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: rgb(38, 74, 44);
+    color: rgb(255, 255, 255);
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.primary-button:hover {
+    background: rgb(51, 97, 58);
+}
+
+/* Recommendations */
+.recommendation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.recommendation-item {
+    display: flex;
+    gap: 12px;
+
+    padding: 14px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 9px;
+
+    background: rgb(255, 255, 255);
+}
+
+.recommendation-level {
+    width: 7px;
+    min-width: 7px;
+
+    border-radius: 10px;
+}
+
+.recommendation-level.high {
+    background: rgb(188, 107, 61);
+}
+
+.recommendation-level.medium {
+    background: rgb(210, 163, 66);
+}
+
+.recommendation-level.low {
+    background: rgb(84, 131, 91);
+}
+
+.recommendation-item h4 {
+    margin: 0 0 5px;
+
+    font-size: 13px;
+}
+
+.recommendation-item p {
+    margin: 0;
+
+    color: rgb(116, 122, 114);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* Weather panel */
+.weather-main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid rgb(226, 222, 210);
+}
+
+.weather-main h4 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+    font-size: 37px;
+}
+
+.weather-main strong {
+    font-size: 13px;
+}
+
+.weather-main p {
+    margin: 5px 0 0;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 11px;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    padding-top: 20px;
+}
+
+.weather-details span,
+.weather-details strong {
+    display: block;
+}
+
+.weather-details span {
+    margin-bottom: 6px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 11px;
+}
+
+.weather-details strong {
+    font-size: 13px;
+}
+
+/* Dashboard footer */
+.dashboard-footer {
+    margin-top: 20px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 11px;
+    text-align: right;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+    .dashboard-layout {
+        display: block;
+    }
+
+    .sidebar {
+        position: static;
+
+        width: 100%;
+        padding: 18px;
+    }
+
+    .sidebar-nav {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        margin: 20px 0;
+    }
+
+    .sidebar-footer {
+        margin-top: 10px;
+    }
+
+    .main-content {
+        padding: 20px 15px;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 430px) {
+    .sidebar-nav {
+        grid-template-columns: 1fr;
+    }
+
+    .header-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+    
+   /* FIELDS PAGE */
+
+/* Add field button */
+.add-field-button {
+    padding: 11px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: rgb(38, 74, 44);
+    color: rgb(255, 255, 255);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.add-field-button:hover {
+    background: rgb(51, 97, 58);
+}
+
+/* Fields summary */
+.field-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+/* Fields section */
+.fields-section {
+    padding: 22px;
+
+    border: 1px solid rgb(222, 219, 206);
+    border-radius: 12px;
+
+    background: rgb(253, 252, 248);
+
+    box-shadow: 0 4px 18px rgb(44 57 42 / 5%);
+}
+
+/* Section heading */
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+.section-heading h3 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+    font-size: 21px;
+}
+
+.section-heading select {
+    padding: 9px 12px;
+
+    border: 1px solid rgb(217, 211, 193);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(64, 72, 62);
+
+    outline: none;
+    cursor: pointer;
+}
+
+.section-heading select:focus {
+    border-color: rgb(71, 124, 80);
+}
+
+/* Field card grid */
+.field-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+/* Individual field card */
+.field-card {
+    padding: 20px;
+
+    border: 1px solid rgb(226, 222, 210);
+    border-radius: 10px;
+
+    background: rgb(255, 255, 255);
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.field-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 20px rgb(44 57 42 / 10%);
+}
+
+/* Field card heading */
+.field-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+
+    padding-bottom: 17px;
+
+    border-bottom: 1px solid rgb(230, 226, 214);
+}
+
+.field-card-header p {
+    margin: 0 0 5px;
+
+    color: rgb(165, 97, 50);
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.field-card-header h3 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+}
+
+/* Field status */
+.field-status {
+    padding: 6px 9px;
+
+    border-radius: 12px;
+
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.field-status.healthy {
+    background: rgb(228, 238, 226);
+    color: rgb(54, 102, 61);
+}
+
+.field-status.monitor {
+    background: rgb(248, 232, 217);
+    color: rgb(158, 82, 43);
+}
+
+/* Field information */
+.field-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+
+    padding: 20px 0;
+}
+
+.field-details span,
+.field-details strong {
+    display: block;
+}
+
+.field-details span {
+    margin-bottom: 5px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 10px;
+}
+
+.field-details strong {
+    color: rgb(32, 36, 31);
+
+    font-size: 12px;
+}
+
+/* View details button */
+.view-field-button {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid rgb(38, 74, 44);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(38, 74, 44);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease,
+                color 0.2s ease;
+}
+
+.view-field-button:hover {
+    background: rgb(38, 74, 44);
+    color: rgb(255, 255, 255);
+}
+
+/* Fields tablet layout */
+@media (max-width: 1100px) {
+    .field-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Fields mobile layout */
+@media (max-width: 760px) {
+    .field-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .add-field-button {
+        width: 100%;
+    }
+}
+/*
+   CROP HEALTH PAGE
+*/
+
+/* Crop summary cards */
+.crop-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+/* Crop health main layout */
+.crop-health-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* Health field list */
+.health-field-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.health-field-item {
+    padding: 18px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 9px;
+
+    background: rgb(255, 255, 255);
+}
+
+.health-field-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 16px;
+}
+
+.health-field-heading h4 {
+    margin: 0 0 5px;
+
+    font-size: 14px;
+}
+
+.health-field-heading p {
+    margin: 0;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 10px;
+}
+
+/* Health status labels */
+.health-label {
+    padding: 6px 9px;
+
+    border-radius: 12px;
+
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.health-label.healthy {
+    background: rgb(228, 238, 226);
+    color: rgb(54, 102, 61);
+}
+
+.health-label.monitor {
+    background: rgb(248, 232, 217);
+    color: rgb(158, 82, 43);
+}
+
+/* Health progress bars */
+.health-progress-track {
+    width: 100%;
+    height: 9px;
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgb(228, 226, 216);
+}
+
+.health-progress-value {
+    height: 100%;
+
+    border-radius: 20px;
+
+    background: rgb(71, 124, 80);
+}
+
+.health-progress-value.north {
+    width: 91%;
+}
+
+.health-progress-value.east {
+    width: 73%;
+    background: rgb(210, 163, 66);
+}
+
+.health-progress-details {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    color: rgb(102, 109, 99);
+
+    font-size: 11px;
+}
+
+/* Disease detection panel */
+.disease-placeholder {
+    padding: 22px;
+
+    border: 1px dashed rgb(190, 188, 178);
+    border-radius: 9px;
+
+    background: rgb(248, 247, 241);
+
+    text-align: center;
+}
+
+.disease-placeholder h4 {
+    margin: 0 0 9px;
+
+    color: rgb(32, 36, 31);
+
+    font-size: 14px;
+}
+
+.disease-placeholder > p {
+    margin: 0;
+
+    color: rgb(116, 122, 114);
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.disease-placeholder .primary-button {
+    margin-top: 20px;
+}
+
+.selected-image-name {
+    margin-top: 12px !important;
+
+    color: rgb(71, 124, 80) !important;
+
+    font-weight: 600;
+}
+
+/* Health alerts */
+.health-alert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.health-alert-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 15px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-left-width: 5px;
+    border-radius: 8px;
+
+    background: rgb(255, 255, 255);
+}
+
+.health-alert-item.high {
+    border-left-color: rgb(188, 107, 61);
+}
+
+.health-alert-item.medium {
+    border-left-color: rgb(210, 163, 66);
+}
+
+.health-alert-item h4 {
+    margin: 0 0 5px;
+
+    font-size: 13px;
+}
+
+.health-alert-item p {
+    margin: 0;
+
+    color: rgb(116, 122, 114);
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.health-alert-item > span {
+    padding: 5px 8px;
+
+    border-radius: 10px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.health-alert-item.high > span {
+    background: rgb(248, 232, 217);
+    color: rgb(158, 82, 43);
+}
+
+.health-alert-item.medium > span {
+    background: rgb(250, 241, 213);
+    color: rgb(145, 104, 22);
+}
+
+/* Crop action list */
+.crop-action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.crop-action-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 8px;
+
+    background: rgb(255, 255, 255);
+}
+
+.crop-action-item strong {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgb(228, 238, 226);
+    color: rgb(54, 102, 61);
+
+    font-size: 11px;
+}
+
+.crop-action-item p {
+    margin: 0;
+
+    color: rgb(79, 85, 76);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* Crop health tablet layout */
+@media (max-width: 1100px) {
+    .crop-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .crop-health-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Crop health mobile layout */
+@media (max-width: 760px) {
+    .crop-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* 
+   IRRIGATION PAGE
+*/
+
+/* Irrigation summary */
+.irrigation-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+/* Irrigation page layout */
+.irrigation-page-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* Selected field heading */
+.irrigation-field-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 24px;
+}
+
+.irrigation-field-heading p {
+    margin: 0 0 5px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 11px;
+}
+
+.irrigation-field-heading h4 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+}
+
+.irrigation-field-heading select {
+    padding: 9px 11px;
+
+    border: 1px solid rgb(217, 211, 193);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(64, 72, 62);
+
+    outline: none;
+    cursor: pointer;
+}
+
+.irrigation-field-heading select:focus {
+    border-color: rgb(71, 124, 80);
+}
+
+/* Irrigation measurements */
+.irrigation-measurements {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+
+    margin-bottom: 26px;
+}
+
+.irrigation-measurements div {
+    padding: 15px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 8px;
+
+    background: rgb(255, 255, 255);
+}
+
+.irrigation-measurements span,
+.irrigation-measurements strong {
+    display: block;
+}
+
+.irrigation-measurements span {
+    margin-bottom: 7px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 10px;
+}
+
+.irrigation-measurements strong {
+    color: rgb(32, 36, 31);
+
+    font-size: 14px;
+}
+
+/* Irrigation progress */
+.irrigation-progress-heading {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    color: rgb(102, 109, 99);
+
+    font-size: 11px;
+}
+
+.irrigation-page-progress {
+    width: 100%;
+    height: 10px;
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgb(228, 226, 216);
+}
+
+.irrigation-page-progress-value {
+    width: 72%;
+    height: 100%;
+
+    border-radius: 20px;
+
+    background: rgb(71, 124, 80);
+
+    transition: width 0.4s ease;
+}
+
+/* Irrigation control buttons */
+.irrigation-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+.irrigation-controls .primary-button {
+    margin-top: 0;
+}
+
+.secondary-button,
+.danger-button {
+    padding: 11px;
+
+    border-radius: 8px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.secondary-button {
+    border: 1px solid rgb(38, 74, 44);
+
+    background: rgb(255, 255, 255);
+    color: rgb(38, 74, 44);
+}
+
+.secondary-button:hover {
+    background: rgb(228, 238, 226);
+}
+
+.danger-button {
+    border: 1px solid rgb(170, 74, 55);
+
+    background: rgb(255, 255, 255);
+    color: rgb(170, 74, 55);
+}
+
+.danger-button:hover {
+    background: rgb(248, 232, 217);
+}
+
+/* Irrigation settings form */
+.irrigation-form-group {
+    margin-bottom: 17px;
+}
+
+.irrigation-form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: rgb(64, 72, 62);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.irrigation-input-row {
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    border: 1px solid rgb(217, 211, 193);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+}
+
+.irrigation-input-row:focus-within {
+    border-color: rgb(71, 124, 80);
+}
+
+.irrigation-input-row input {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    border: none;
+
+    background: rgb(255, 255, 255);
+    color: rgb(32, 36, 31);
+
+    outline: none;
+}
+
+.irrigation-input-row span {
+    padding: 10px 12px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.settings-message {
+    min-height: 17px;
+
+    margin: 12px 0 0;
+
+    color: rgb(54, 102, 61);
+
+    font-size: 11px;
+    text-align: center;
+}
+
+/* Irrigation schedule */
+.irrigation-schedule-panel {
+    grid-column: 1 / -1;
+}
+
+.small-action-button {
+    padding: 8px 12px;
+
+    border: 1px solid rgb(38, 74, 44);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(38, 74, 44);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.small-action-button:hover {
+    background: rgb(228, 238, 226);
+}
+
+.schedule-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.schedule-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 13px;
+
+    border-bottom: 1px solid rgb(230, 226, 214);
+
+    font-size: 11px;
+    text-align: left;
+}
+
+.schedule-table th {
+    color: rgb(102, 109, 99);
+
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.schedule-table td {
+    color: rgb(32, 36, 31);
+}
+
+.schedule-status {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    border-radius: 10px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.schedule-status.active {
+    background: rgb(228, 238, 226);
+    color: rgb(54, 102, 61);
+}
+
+.schedule-status.scheduled {
+    background: rgb(250, 241, 213);
+    color: rgb(145, 104, 22);
+}
+
+/* Irrigation tablet layout */
+@media (max-width: 1100px) {
+    .irrigation-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .irrigation-page-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .irrigation-schedule-panel {
+        grid-column: auto;
+    }
+}
+
+/* Irrigation mobile layout */
+@media (max-width: 760px) {
+    .irrigation-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .irrigation-field-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .irrigation-field-heading select {
+        width: 100%;
+    }
+
+    .irrigation-measurements {
+        grid-template-columns: 1fr;
+    }
+
+    .irrigation-controls {
+        grid-template-columns: 1fr;
+    }
+}
+/* 
+   WEATHER PAGE
+ Weather summary */
+.weather-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+/* Weather page layout */
+.weather-page-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* Current weather */
+.current-weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+
+    margin-bottom: 22px;
+    padding: 25px;
+
+    border-radius: 10px;
+
+    background: rgb(228, 238, 226);
+}
+
+.current-weather-main p {
+    margin: 0 0 7px;
+
+    color: rgb(84, 103, 85);
+
+    font-size: 11px;
+}
+
+.current-weather-main h4 {
+    margin: 0 0 7px;
+
+    font-family: "Playfair Display", serif;
+    font-size: 45px;
+}
+
+.current-weather-main strong {
+    font-size: 13px;
+}
+
+.temperature-range {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px 18px;
+
+    padding: 16px;
+
+    border: 1px solid rgb(205, 220, 202);
+    border-radius: 8px;
+
+    background: rgb(255, 255, 255);
+}
+
+.temperature-range span {
+    color: rgb(119, 125, 116);
+    font-size: 10px;
+}
+
+.temperature-range strong {
+    font-size: 12px;
+}
+
+/* Current condition details */
+.weather-condition-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.weather-condition-grid div {
+    padding: 14px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 8px;
+
+    background: rgb(255, 255, 255);
+}
+
+.weather-condition-grid span,
+.weather-condition-grid strong {
+    display: block;
+}
+
+.weather-condition-grid span {
+    margin-bottom: 7px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 10px;
+}
+
+.weather-condition-grid strong {
+    color: rgb(32, 36, 31);
+
+    font-size: 12px;
+}
+
+/* Weather location selector */
+.current-weather-panel select {
+    padding: 9px 11px;
+
+    border: 1px solid rgb(217, 211, 193);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(64, 72, 62);
+
+    outline: none;
+    cursor: pointer;
+}
+
+.current-weather-panel select:focus {
+    border-color: rgb(71, 124, 80);
+}
+
+/* Weather advice */
+.weather-advice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.weather-advice-item {
+    display: flex;
+    gap: 12px;
+
+    padding: 14px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 8px;
+
+    background: rgb(255, 255, 255);
+}
+
+.advice-level {
+    width: 7px;
+    min-width: 7px;
+
+    border-radius: 10px;
+}
+
+.advice-level.suitable {
+    background: rgb(84, 131, 91);
+}
+
+.advice-level.caution {
+    background: rgb(210, 163, 66);
+}
+
+.weather-advice-item h4 {
+    margin: 0 0 5px;
+
+    font-size: 12px;
+}
+
+.weather-advice-item p {
+    margin: 0;
+
+    color: rgb(116, 122, 114);
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+/* Forecast */
+.forecast-panel {
+    grid-column: 1 / -1;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
+
+.forecast-card {
+    padding: 18px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 9px;
+
+    background: rgb(255, 255, 255);
+
+    text-align: center;
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.forecast-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 7px 18px rgb(44 57 42 / 10%);
+}
+
+.forecast-card p {
+    margin: 0 0 12px;
+
+    color: rgb(119, 125, 116);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.forecast-card h4 {
+    margin: 0 0 8px;
+
+    font-family: "Playfair Display", serif;
+    font-size: 25px;
+}
+
+.forecast-card span,
+.forecast-card strong {
+    display: block;
+}
+
+.forecast-card span {
+    margin-bottom: 9px;
+
+    color: rgb(90, 98, 88);
+
+    font-size: 10px;
+}
+
+.forecast-card strong {
+    color: rgb(71, 124, 80);
+
+    font-size: 10px;
+}
+
+/* Weather tablet layout */
+@media (max-width: 1100px) {
+    .weather-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .weather-page-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .forecast-panel {
+        grid-column: auto;
+    }
+
+    .forecast-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Weather mobile layout */
+@media (max-width: 760px) {
+    .weather-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .current-weather-main {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .temperature-range {
+        width: 100%;
+    }
+
+    .weather-condition-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .forecast-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .current-weather-panel .panel-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .current-weather-panel select {
+        width: 100%;
+    }
+}
+/* 
+   REPORTS PAGE
+ */
+
+/* Report summary */
+.report-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+/* Reports main layout */
+.reports-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Report form */
+.report-form-group {
+    margin-bottom: 17px;
+}
+
+.report-form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: rgb(64, 72, 62);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.report-form-group select,
+.report-form-group input {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    border: 1px solid rgb(217, 211, 193);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(32, 36, 31);
+
+    outline: none;
+}
+
+.report-form-group select {
+    cursor: pointer;
+}
+
+.report-form-group select:focus,
+.report-form-group input:focus {
+    border-color: rgb(71, 124, 80);
+}
+
+.report-date-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Report information */
+.report-information-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.report-information-list div {
+    padding: 15px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 8px;
+
+    background: rgb(255, 255, 255);
+}
+
+.report-information-list strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: rgb(32, 36, 31);
+
+    font-size: 12px;
+}
+
+.report-information-list p {
+    margin: 0;
+
+    color: rgb(116, 122, 114);
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+/* Saved reports */
+.saved-reports-panel {
+    grid-column: 1 / -1;
+}
+
+.saved-reports-panel select {
+    padding: 9px 11px;
+
+    border: 1px solid rgb(217, 211, 193);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(64, 72, 62);
+
+    outline: none;
+    cursor: pointer;
+}
+
+.saved-reports-panel select:focus {
+    border-color: rgb(71, 124, 80);
+}
+
+/* Report table */
+.report-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.report-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+    padding: 13px;
+
+    border-bottom: 1px solid rgb(230, 226, 214);
+
+    text-align: left;
+}
+
+.report-table th {
+    color: rgb(119, 125, 116);
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.report-table td {
+    color: rgb(64, 72, 62);
+
+    font-size: 11px;
+}
+
+/* Report status */
+.report-status {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    border-radius: 10px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.report-status.ready {
+    background: rgb(228, 238, 226);
+    color: rgb(54, 102, 61);
+}
+
+.report-status.processing {
+    background: rgb(250, 241, 213);
+    color: rgb(145, 104, 22);
+}
+
+/* Report action button */
+.report-action-button {
+    padding: 6px 11px;
+
+    border: 1px solid rgb(38, 74, 44);
+    border-radius: 6px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(38, 74, 44);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.report-action-button:hover {
+    background: rgb(38, 74, 44);
+    color: rgb(255, 255, 255);
+}
+
+/* Reports tablet layout */
+@media (max-width: 1100px) {
+    .report-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Reports mobile layout */
+@media (max-width: 760px) {
+    .report-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reports-page-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .saved-reports-panel {
+        grid-column: auto;
+    }
+
+    .report-date-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .saved-reports-panel .panel-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .saved-reports-panel select {
+        width: 100%;
+    }
+}
+/* 
+   SETTINGS PAGE
+ */
+
+/* Settings layout */
+.settings-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Wide settings panel */
+.settings-wide-panel {
+    grid-column: 1 / -1;
+}
+
+/* Settings form */
+.settings-form-group {
+    margin-bottom: 17px;
+}
+
+.settings-form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: rgb(64, 72, 62);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.settings-form-group input,
+.settings-form-group select {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: 1px solid rgb(217, 211, 193);
+    border-radius: 7px;
+
+    background: rgb(255, 255, 255);
+    color: rgb(32, 36, 31);
+
+    outline: none;
+}
+
+.settings-form-group select {
+    cursor: pointer;
+}
+
+.settings-form-group input:focus,
+.settings-form-group select:focus {
+    border-color: rgb(71, 124, 80);
+}
+
+/* Notification list */
+.notification-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.notification-setting {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 17px;
+
+    border: 1px solid rgb(230, 226, 214);
+    border-radius: 9px;
+
+    background: rgb(255, 255, 255);
+}
+
+.notification-setting h4 {
+    margin: 0 0 6px;
+
+    color: rgb(32, 36, 31);
+
+    font-size: 13px;
+}
+
+.notification-setting p {
+    max-width: 45ch;
+
+    margin: 0;
+
+    color: rgb(116, 122, 114);
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+/* Toggle switch */
+.switch {
+    position: relative;
+
+    width: 44px;
+    min-width: 44px;
+    height: 24px;
+
+    display: inline-block;
+}
+
+.switch input {
+    width: 0;
+    height: 0;
+
+    opacity: 0;
+}
+
+.switch-slider {
+    position: absolute;
+    inset: 0;
+
+    border-radius: 24px;
+
+    background: rgb(190, 190, 185);
+
+    cursor: pointer;
+
+    transition: background 0.3s ease;
+}
+
+.switch-slider::before {
+    content: "";
+
+    position: absolute;
+    bottom: 3px;
+    left: 3px;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: rgb(255, 255, 255);
+
+    transition: transform 0.3s ease;
+}
+
+.switch input:checked + .switch-slider {
+    background: rgb(71, 124, 80);
+}
+
+.switch input:checked + .switch-slider::before {
+    transform: translateX(20px);
+}
+
+/* Save notifications button */
+.settings-save-button {
+    width: auto;
+
+    margin-top: 20px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* Settings mobile layout */
+@media (max-width: 760px) {
+    .settings-page-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-wide-panel {
+        grid-column: auto;
+    }
+
+    .notification-list {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-save-button {
+        width: 100%;
+    }
+}
+}
