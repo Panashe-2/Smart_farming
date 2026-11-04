@@ -28,17 +28,20 @@
             </div>
         </div>
 
-        <nav class="sidebar-nav">
-            <a href="#" class="nav-link active">Overview</a>
-            <a href="#" class="nav-link">Fields</a>
-            <a href="#" class="nav-link">Crop Health</a>
-            <a href="#" class="nav-link">Irrigation</a>
-            <a href="#" class="nav-link">Weather</a>
-            <a href="#" class="nav-link">Reports</a>
-        </nav>
+       
+<nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-link active">Overview</a>
+    <a href="fields.html" class="nav-link">Fields</a>
+    <a href="cropHealth.html" class="nav-link">Crop Health</a>
+    <a href="irrigation.html" class="nav-link">Irrigation</a>
+    <a href="weather.html" class="nav-link">Weather</a>
+    <a href="reports.html" class="nav-link">Reports</a>
+</nav>
+
 
         <div class="sidebar-footer">
-            <a href="#" class="nav-link">Settings</a>
+            <a href="settings.html" class="nav-link">Settings</a>
+            
             <button type="button" id="logoutButton" class="logout-button">
                 Log out
             </button>
@@ -54,7 +57,7 @@
 
             <div>
                 <p class="page-label">Farm overview</p>
-                <h2>Good day, Farmer</h2>
+               <h2>Good day, <span id="farmerName">Farmer</span></h2>
                 <p class="header-description">
                     Monitor your farm conditions and crop performance.
                 </p>
@@ -277,6 +280,11 @@
     </main>
 
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabaseConfig.js"></script>
+<script src="dashboardAuth.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="dashboard.js"></script>
