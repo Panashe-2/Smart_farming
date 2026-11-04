@@ -395,6 +395,321 @@
             </article>
 
         </section>
+        
+<!-- Crop Recommendation -->
+<section class="dashboard-panel" style="margin-top: 24px;">
+
+    <div class="panel-header">
+        <div>
+            <p class="panel-label">Machine Learning</p>
+            <h3>Crop Recommendation</h3>
+        </div>
+    </div>
+
+    <p>
+        Enter soil and weather measurements to get
+        a crop recommendation.
+    </p>
+
+    <form id="cropRecommendationForm"
+          style="display: grid; gap: 12px; margin-top: 16px;">
+
+        <label>
+            Nitrogen (N)
+            <input type="number" name="N" step="any" required>
+        </label>
+
+        <label>
+            Phosphorus (P)
+            <input type="number" name="P" step="any" required>
+        </label>
+
+        <label>
+            Potassium (K)
+            <input type="number" name="K" step="any" required>
+        </label>
+
+        <label>
+            Temperature (°C)
+            <input type="number" name="temperature" step="any" required>
+        </label>
+
+        <label>
+            Humidity (%)
+            <input type="number" name="humidity" step="any" required>
+        </label>
+
+        <label>
+            Soil pH
+            <input type="number" name="ph" step="any" required>
+        </label>
+
+        <label>
+            Rainfall (mm)
+            <input type="number" name="rainfall" step="any" required>
+        </label>
+
+        <button type="submit" class="primary-button">
+            Predict Suitable Crop
+        </button>
+    </form>
+
+    <p id="cropPredictionResult"
+       role="status"
+       aria-live="polite"
+       style="margin-top: 16px;">
+        No prediction yet.
+    </p>
+
+</section>
+
+<!-- MAIZE SOIL QUALITY -->
+<section class="dashboard-panel" style="margin-top: 24px;">
+    <div class="panel-header">
+        <div>
+            <p class="panel-label">Machine Learning</p>
+            <h3>Maize Soil Quality</h3>
+        </div>
+    </div>
+
+    <p>Enter farming measurements to check maize soil fertility.</p>
+
+    <form id="soilQualityForm"
+          style="display: grid; gap: 12px; margin-top: 16px;">
+
+        <label>Temperature (°C)
+            <input type="number" name="temperature" step="any" required>
+        </label>
+
+        <label>Humidity (%)
+            <input type="number" name="humidity" step="any" required>
+        </label>
+
+        <label>Soil Moisture (%)
+            <input type="number" name="moisture" step="any" required>
+        </label>
+
+        <label>Soil Type
+            <select name="soil_type" required>
+                <option value="Loamy">Loamy</option>
+                <option value="Sandy">Sandy</option>
+                <option value="Clayey">Clayey</option>
+            </select>
+        </label>
+
+        <button type="submit" class="primary-button">
+            Check Soil Quality
+        </button>
+    </form>
+
+    <p id="soilQualityResult"
+       role="status"
+       aria-live="polite"
+       style="margin-top: 16px;">
+        No prediction yet.
+    </p>
+</section>
+
+
+
+<!-- MAIZE SUITABILITY MODEL -->
+<section class="dashboard-panel" style="margin-top:24px;">
+
+    <div class="panel-header">
+        <div>
+            <p class="panel-label">Machine Learning</p>
+            <h3>Maize Suitability Prediction</h3>
+        </div>
+    </div>
+
+    <p>
+        Enter the climate, terrain, soil and nutrient
+        measurements to predict maize growing suitability.
+    </p>
+
+    <p style="font-size:13px;color:#68766d;">
+        All 16 measurements are required.
+        This model is advisory and does not replace
+        agricultural field testing.
+    </p>
+
+    <form id="maizeSuitabilityForm"
+          style="margin-top:20px;">
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:18px;
+        ">
+
+            <div>
+                <label for="maizeZoneId">Farm Zone ID</label>
+                <input type="text"
+                       id="maizeZoneId"
+                       value="zone-1"
+                       required>
+            </div>
+
+            <div>
+                <label for="avg_season_gdd">
+                    Average Growing Degree Days
+                </label>
+                <input type="number"
+                       id="avg_season_gdd"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="avg_season_ai">
+                    Average Aridity Index
+                </label>
+                <input type="number"
+                       id="avg_season_ai"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="avg_season_tavg">
+                    Average Seasonal Temperature
+                </label>
+                <input type="number"
+                       id="avg_season_tavg"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="season_prec">
+                    Seasonal Precipitation
+                </label>
+                <input type="number"
+                       id="season_prec"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="season_prec_1">
+                    Precipitation Period 1
+                </label>
+                <input type="number"
+                       id="season_prec_1"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="season_prec_2">
+                    Precipitation Period 2
+                </label>
+                <input type="number"
+                       id="season_prec_2"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="season_prec_3">
+                    Precipitation Period 3
+                </label>
+                <input type="number"
+                       id="season_prec_3"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="elev">Elevation</label>
+                <input type="number"
+                       id="elev"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="twi">
+                    Topographic Wetness Index
+                </label>
+                <input type="number"
+                       id="twi"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="soil_rzpawhc">
+                    Root Zone Water Holding Capacity
+                </label>
+                <input type="number"
+                       id="soil_rzpawhc"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="soil_clay">
+                    Soil Clay Content
+                </label>
+                <input type="number"
+                       id="soil_clay"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="soil_pH">Soil pH</label>
+                <input type="number"
+                       id="soil_pH"
+                       min="0" max="14"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="soil_orgC">
+                    Soil Organic Carbon
+                </label>
+                <input type="number"
+                       id="soil_orgC"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="soil_ECEC">
+                    Effective Cation Exchange Capacity
+                </label>
+                <input type="number"
+                       id="soil_ECEC"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="N_kg_ha">
+                    Nitrogen (kg/ha)
+                </label>
+                <input type="number"
+                       id="N_kg_ha"
+                       step="any" required>
+            </div>
+
+            <div>
+                <label for="P_kg_ha">
+                    Phosphorus (kg/ha)
+                </label>
+                <input type="number"
+                       id="P_kg_ha"
+                       step="any" required>
+            </div>
+
+        </div>
+
+        <button type="submit"
+                id="maizeSuitabilityButton"
+                class="primary-button"
+                style="width:100%;margin-top:24px;">
+            Predict Maize Suitability
+        </button>
+
+        <p id="maizeSuitabilityResult"
+           role="status"
+           aria-live="polite"
+           style="margin-top:16px;">
+            No prediction yet.
+        </p>
+
+    </form>
+
+</section>
 
         <footer class="dashboard-footer">
 
@@ -411,7 +726,10 @@
 
 </div>
 
+
 <script src="cropHealth.js"></script>
+<script src="maizeSuitability.js"></script>
+
 
 </body>
 

@@ -101,13 +101,17 @@ async function loadCropHealthData() {
         const monitorCount =
             cropHealthData.length - healthyCount;
 
-        const healthyPercentage = Math.round(
-            (healthyCount / cropHealthData.length) * 100
-        );
+        
+const totalFields = cropHealthData.length;
 
-        const monitorPercentage = Math.round(
-            (monitorCount / cropHealthData.length) * 100
-        );
+const healthyPercentage = totalFields > 0
+    ? Math.round((healthyCount / totalFields) * 100)
+    : 0;
+
+const monitorPercentage = totalFields > 0
+    ? Math.round((monitorCount / totalFields) * 100)
+    : 0;
+
 
         healthyAreas.textContent =
             healthyPercentage + "%";
@@ -159,3 +163,119 @@ loadCropHealthData();
 
 // Refresh backend data every 30 seconds
 setInterval(loadCropHealthData, 30000);
+
+ // CROP RECOMMENDATION MACHINE LEARNING
+
+const cropRecommendationForm =
+    document.getElementById("cropRecommendationForm");
+
+const cropPredictionResult =
+    document.getElementById("cropPredictionResult");
+
+cropRecommendationForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    cropPredictionResult.textContent =
+        "Analysing farming measurements...";
+
+    const formData = new FormData(cropRecommendationForm);
+
+    const cropData = {
+        zone_id: "field-01",
+        N: Number(formData.get("N")),
+        P: Number(formData.get("P")),
+        K: Number(formData.get("K")),
+        temperature: Number(formData.get("temperature")),
+        humidity: Number(formData.get("humidity")),
+        ph: Number(formData.get("ph")),
+        rainfall: Number(formData.get("rainfall"))
+    };
+
+    try {
+        const response = await fetch(`${API_URL}/ml/crop`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(cropData)
+        });
+
+        if (!response.ok) {
+            throw new Error("Crop prediction failed.");
+        }
+
+        const result = await response.json();
+
+        const confidence =
+            (result.confidence * 100).toFixed(2);
+
+        cropPredictionResult.textContent =
+            "Recommended crop: " +
+            result.recommended_crop +
+            " | Confidence: " +
+            confidence + "%";
+
+    } catch (error) {
+        console.error("Crop recommendation error:", error);
+
+        cropPredictionResult.textContent =
+            "Unable to generate a prediction. " +
+            "Check that Node.js and Django are running.";
+    }
+});
+
+ // MAIZE SOIL QUALITY PREDICTION
+
+const soilQualityForm =
+    document.getElementById("soilQualityForm");
+
+const soilQualityResult =
+    document.getElementById("soilQualityResult");
+
+soilQualityForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    soilQualityResult.textContent = "Checking soil quality...";
+
+    const formData = new FormData(soilQualityForm);
+
+    const soilData = {
+        zone_id: "field-01",
+        temperature: Number(formData.get("temperature")),
+        humidity: Number(formData.get("humidity")),
+        moisture: Number(formData.get("moisture")),
+        soil_type: formData.get("soil_type")
+    };
+
+    try {
+        const response = await fetch(`${API_URL}/ml/soil`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(soilData)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                result.error || result.message || "Prediction failed"
+            );
+        }
+
+        soilQualityResult.textContent =
+            "Maize soil fertility: " +
+            result.fertility_flag +
+            " | Confidence: " +
+            (result.confidence * 100).toFixed(2) +
+            "% | Advice: " +
+            result.advisory;
+
+    } catch (error) {
+        console.error("Soil quality error:", error);
+
+        soilQualityResult.textContent =
+            "Unable to check soil quality: " + error.message;
+    }
+});

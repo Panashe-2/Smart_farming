@@ -431,6 +431,88 @@
 
         </section>
 
+<!-- PRECISION IRRIGATION MACHINE LEARNING -->
+<section class="dashboard-panel"
+         style="margin: 24px 30px;">
+
+    <div class="panel-header">
+        <div>
+            <p class="panel-label">Machine Learning</p>
+            <h3>Precision Irrigation Prediction</h3>
+        </div>
+    </div>
+
+    <p>
+        Enter the soil and weather measurements
+        to estimate the required water quantity.
+    </p>
+
+    <form id="precisionIrrigationForm">
+
+        <div class="irrigation-form-group">
+            <label for="mlSoilMoisture">
+                Soil Moisture (%)
+            </label>
+
+            <input type="number"
+                   id="mlSoilMoisture"
+                   min="0"
+                   max="100"
+                   step="any"
+                   value="54"
+                   required>
+        </div>
+
+        <div class="irrigation-form-group">
+            <label for="mlHumidity">
+                Humidity (%)
+            </label>
+
+            <input type="number"
+                   id="mlHumidity"
+                   min="0"
+                   max="100"
+                   step="any"
+                   value="70"
+                   required>
+        </div>
+
+        <div class="irrigation-form-group">
+            <label for="mlTemperature">
+                Temperature (°C)
+            </label>
+
+            <input type="number"
+                   id="mlTemperature"
+                   min="-20"
+                   max="60"
+                   step="any"
+                   value="27"
+                   required>
+        </div>
+
+        <button type="submit"
+                class="primary-button"
+                id="mlPredictButton">
+            Estimate Water Requirement
+        </button>
+
+        <p id="precisionIrrigationResult"
+           role="status"
+           aria-live="polite"
+           style="margin-top: 16px;">
+        </p>
+
+    </form>
+
+    <p style="font-size: 13px; color: #68766d;">
+        This is a machine-learning demonstration estimate,
+        not a verified watering instruction.
+        The prediction does not activate irrigation equipment.
+    </p>
+
+</section>
+
         <footer class="dashboard-footer">
 
             <p>
@@ -446,7 +528,12 @@
 
 </div>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabaseConfig.js"></script>
 <script src="irrigation.js"></script>
+<script src="precisionIrrigation.js"></script>
 
 </body>
 

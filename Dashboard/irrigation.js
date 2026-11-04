@@ -459,15 +459,41 @@ function updateLastUpdatedTime() {
 
 // LOG OUT
 
-logoutButton.addEventListener("click", function () {
+
+// LOG OUT USING SUPABASE
+
+logoutButton.addEventListener("click", async function () {
     const shouldLogout = confirm(
         "Are you sure you want to log out?"
     );
 
-    if (shouldLogout) {
-        window.location.href = "index.html";
+    if (!shouldLogout) {
+        return;
+    }
+
+    if (typeof farmSenseAuth === "undefined") {
+        alert("Authentication is unavailable.");
+        return;
+    }
+
+    logoutButton.disabled = true;
+
+    try {
+        const { error } = await farmSenseAuth.auth.signOut();
+
+        if (error) {
+            throw error;
+        }
+
+        window.location.replace("index.html");
+
+    } catch (error) {
+        console.error("Logout failed:", error);
+        alert("Unable to log out. Please try again.");
+        logoutButton.disabled = false;
     }
 });
+
 
 
 // INITIALISE PAGE
